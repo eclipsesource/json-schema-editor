@@ -1,7 +1,14 @@
 import "angular";
 
-import {StarComponent} from "./components/star/StarComponent";
-import {TwitterApplicationComponent} from "./components/twitterApplication/TwitterApplicationComponent";
+import {TreeMasterDetailComponent} from "./components/tree-master-detail-panel/TreeMasterDetailComponent";
+import {PropertiesComponent} from "./components/properties-panel/PropertiesComponent";
+import {JsonSchemaEditorApplicationComponent} from "./components/jsonSchemaEditorApplication/JsonSchemaEditorApplicationComponent";
+import {ItemComponent} from "./components/item-panel/ItemComponent";
+import {HeaderComponent} from "./components/header/HeaderComponent";
+
 angular.module("app.application", [])
-    .component("twitterApplication", new TwitterApplicationComponent())
-    .component("star",  new StarComponent());
+    .component("jsonSchemaEditorApplication", new JsonSchemaEditorApplicationComponent())
+    .component("headerComponent", new HeaderComponent())
+    .component("itemComponent", new ItemComponent())
+    .component("treeMasterDetailComponent", new TreeMasterDetailComponent())
+    .component("propertiesComponent", new PropertiesComponent());

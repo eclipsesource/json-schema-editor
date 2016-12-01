@@ -1,6 +1,6 @@
-import {MetaschemaLoaderService} from "./MetaschemaLoaderService";
+import {HttpService} from "../../../../util/HttpService";
 
-export class Parser{
+export class Parser extends HttpService{
     // TODO: get schema from http request
     /*schema = {
       "type": "object",
@@ -40,7 +40,6 @@ export class Parser{
         }
       }
     };*/
-    static $inject = ['metaschemaLoaderService'];
     private schema;
 
     result = {
@@ -48,19 +47,25 @@ export class Parser{
         "rootElement" : {}
     };
 
-    constructor(public metaschemaLoaderService: MetaschemaLoaderService){
+    /*constructor(public metaschemaLoaderService: MetaschemaLoaderService){
         this.loadSchema();
         this.result.rootElement = this.parseSchema(this.schema);
         console.log(this.result);
+    }*/
+
+    getMetaschema():ng.IPromise<any> {
+        var path = "../resource/metaschema.json";
+        var schema = this.get(path);
+        console.log(schema);
+        return schema;
     }
 
     loadSchema() {
-        this.metaschemaLoaderService.getMetaschema().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        var url = "../resource/metaschema.json";
+        this.getMetaschema().then((response: ng.IHttpPromiseCallbackArg<any>) => {
             this.schema = response.data;
+            console.log(response.data);
         });
-
-        console.log(this.schema);
-        this.result.rootElement = this.parseSchema(this.schema);
     }
 
     parseSchema(schema){

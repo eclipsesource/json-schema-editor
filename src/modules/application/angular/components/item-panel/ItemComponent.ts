@@ -9,6 +9,8 @@ export class ItemController {
     static $inject = ['parser'];
 
     constructor(parser:Parser){
-        parser.loadSchema();
+        var schema = parser.getSchema();
+        var parsedSchema = parser.parseSchema(schema);
+        console.log(parsedSchema);
     }
 }

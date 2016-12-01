@@ -1,6 +1,8 @@
-export class Parser {
+import {MetaschemaLoaderService} from "./MetaschemaLoaderService";
+
+export class Parser{
     // TODO: get schema from http request
-    schema = {
+    /*schema = {
       "type": "object",
       "properties": {
         "name": {
@@ -37,7 +39,12 @@ export class Parser {
           }
         }
       }
-    };
+    };*/
+
+    private schema;
+    metaschemaLoaderService: MetaschemaLoaderService;
+
+    static $inject = ['metaschemaLoaderService'];
 
     result = {
         "draggables" : {},
@@ -47,6 +54,15 @@ export class Parser {
     constructor(){
         this.result.rootElement = this.parseSchema(this.schema);
         console.log(this.result);
+    }
+
+    loadSchema(metaschemaLoaderService: MetaschemaLoaderService) {
+        metaschemaLoaderService.getMetaschema().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+            this.schema = response.data;
+        });
+
+        console.log(this.schema);
+        this.result.rootElement = this.parseSchema(this.schema);
     }
 
     parseSchema(schema){

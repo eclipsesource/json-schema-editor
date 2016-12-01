@@ -1,13 +1,8 @@
-/**
- * Created by Akash on 11/23/2016.
- */
+import {Parser} from "../parser/Parser";
+
 export class ItemComponent implements ng.IComponentOptions {
     public controller: Function = ItemController;
-    public template: string = `
-        <div>
-            <h3>Items</h3>
-        </div>
-            `;
+    public template : string = require('./itemComponent.html')
 }
 export class ItemController {
 

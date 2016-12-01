@@ -6,13 +6,16 @@ import {JsonSchemaEditorApplicationComponent} from "./components/jsonSchemaEdito
 import {ItemComponent} from "./components/item-panel/ItemComponent";
 import {HeaderComponent} from "./components/header/HeaderComponent";
 import {Parser} from "./components/parser/Parser";
-//import {MetaschemaLoaderService} from "./components/parser/MetaschemaLoaderService";
+import {MetaschemaLoaderService} from "./components/parser/MetaschemaLoaderService";
 
 angular.module("app.application", [])
-    //.service('metaschemaLoaderService', MetaschemaLoaderService)
+    .service('metaschemaLoaderService', MetaschemaLoaderService)
     .component("jsonSchemaEditorApplication", new JsonSchemaEditorApplicationComponent())
     .component("headerComponent", new HeaderComponent())
     .component("itemComponent", new ItemComponent())
     .component("treeMasterDetailComponent", new TreeMasterDetailComponent())
     .component("propertiesComponent", new PropertiesComponent())
-    .service("parserComponent", Parser);
+    .service("parser", Parser)
+    .run(['parser', function(parser: Parser){
+        console.log(parser.loadSchema());
+    }]);

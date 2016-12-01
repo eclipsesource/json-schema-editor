@@ -40,24 +40,22 @@ export class Parser{
         }
       }
     };*/
-
-    private schema;
-    metaschemaLoaderService: MetaschemaLoaderService;
-
     static $inject = ['metaschemaLoaderService'];
+    private schema;
 
     result = {
         "draggables" : {},
         "rootElement" : {}
     };
 
-    constructor(){
+    constructor(public metaschemaLoaderService: MetaschemaLoaderService){
+        this.loadSchema();
         this.result.rootElement = this.parseSchema(this.schema);
         console.log(this.result);
     }
 
-    loadSchema(metaschemaLoaderService: MetaschemaLoaderService) {
-        metaschemaLoaderService.getMetaschema().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+    loadSchema() {
+        this.metaschemaLoaderService.getMetaschema().then((response: ng.IHttpPromiseCallbackArg<any>) => {
             this.schema = response.data;
         });
 

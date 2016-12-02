@@ -7,19 +7,14 @@ export class Parser{
         "rootElement" : {}
     };
 
-    getSchema(): any{
-        var schema = require("../resource/metaschema.json");
-        return schema;
-    }
-
     parseSchema(schema){
-
         switch (schema.type){
             case "object":
                 if (!schema.properties) {return {};}
                 for (var key in schema.properties) {
                     // Item in array is draggable
                     if (schema.properties[key]["type"] == "array") {
+
                         var subSchema = this.parseSchema(schema.properties[key]["items"]);
                         this.result.draggables[key] = subSchema;
                     }
@@ -33,5 +28,12 @@ export class Parser{
             default:
                 return;
         }
+    }
+
+    getSchema(){
+        this.schema = JSON.stringify(require("../resource/metaschema.json"));
+        this.schema = JSON.parse(this.schema);
+        this.result.rootElement = this.parseSchema(this.schema);
+        return this.result;
     }
 }

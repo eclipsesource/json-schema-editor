@@ -10,7 +10,6 @@ export class ItemController {
 
     constructor(parser:Parser){
         var schema = parser.getSchema();
-        var parsedSchema = parser.parseSchema(schema);
-        console.log(parsedSchema);
+        console.log(schema);
     }
 }

@@ -1,5 +1,4 @@
 export class Parser{
-    // TODO: get schema from http request
     private schema;
 
     result = {

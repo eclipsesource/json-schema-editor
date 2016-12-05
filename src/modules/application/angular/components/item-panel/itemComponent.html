@@ -1,3 +1,19 @@
-<div>
-    <h3>Items</h3>
+<div class="column">
+
+    <div>
+        <h3>Items</h3>
+    </div>
+
+    <div ui-tree>
+        <ol ui-tree-nodes="" ng-model="$ctrl.metaschema">
+            <li ng-repeat="items in $ctrl.metaschema">
+                <div ng-repeat="(key,value) in items" ui-tree-node>
+                    <div ui-tree-handle>
+                        {{key}}
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </div>
+
 </div>

@@ -7,9 +7,11 @@ export class ItemComponent implements ng.IComponentOptions {
 export class ItemController {
     private parser: Parser;
     static $inject = ['parser'];
+    metaschema=[];
+    schema;
 
     constructor(parser:Parser){
-        var schema = parser.getSchema();
-        console.log(schema);
+        this.schema = parser.getSchema();
+        this.metaschema.push(this.schema.draggables);
     }
 }

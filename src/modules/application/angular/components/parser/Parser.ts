@@ -1,7 +1,5 @@
 export class Parser{
-    // TODO: get schema from http request
     private schema;
-
     result = {
         "draggables" : {},
         "rootElement" : {}
@@ -12,21 +10,17 @@ export class Parser{
             case "object":
                 if (!schema.properties) {return {};}
                 for (var key in schema.properties) {
-                    // Item in array is draggable
+                    // Additables are within an array with type object
                     if (schema.properties[key]["type"] == "array") {
-
-                        var subSchema = this.parseSchema(schema.properties[key]["items"]);
-                        this.result.draggables[key] = subSchema;
+                        if (schema.properties[key]["items"]["type"] == "object") {
+                            this.result.draggables[key] = this.parseSchema(schema.properties[key]["items"]);
+                        }
                     }
                     schema.properties[key] = this.parseSchema(schema.properties[key]);
                 }
                 return schema.properties;
-            case "array":
-                return [];
-            case "string":
-                return "";
             default:
-                return;
+                return schema;
         }
     }
 

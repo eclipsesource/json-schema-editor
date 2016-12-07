@@ -32,6 +32,17 @@ export class Parser{
             var item = {};
             item["key"] = i;
             item["properties"] = _.get(schema,i);
+            var prop = item["properties"]
+
+            for(var j in prop){
+                if(prop[j].type==='array'){
+                    item["droppable"] = true;
+                    item["nodes"] = [];
+                }
+            }
+            if(item["droppable"]===undefined)
+                item["droppable"] = false;
+
             result.push(item);
         }
         return result;
@@ -45,10 +56,6 @@ export class Parser{
         item["properties"] = _.get(schema,'rootElement');
         item["nodes"] = [];
         result.push(item);
-
-        console.log("getRootElement");
-        console.log(result);
-
         return result;
     }
 
@@ -56,8 +63,6 @@ export class Parser{
         this.schema = JSON.stringify(require("../resource/metaschema.json"));
         this.schema = JSON.parse(this.schema);
         this.result.rootElement = this.parseSchema(this.schema);
-        console.log("parser output");
-        console.log(this.result);
         return this.result;
     }
 }

@@ -18,27 +18,25 @@ export class TreeMasterDetailController {
 
     mastertreeOptions = {
         dropped: (event) => {
-            console.log("dropped");
             console.log(event);
         },
         accept: (sourceNodeScope, destNodesScope, destIndex) => {
-            console.log(sourceNodeScope.$parent.$id);
-            console.log(destNodesScope.$id);
-            console.log(sourceNodeScope.item);
-            console.log(destIndex);
-            console.log(this.treelist);
+            //check if destnode and parent node are same and return false if true to avoid unlimited nesting
+            if(destNodesScope.$parent.$modelValue){
+                if(sourceNodeScope.item.key===destNodesScope.$parent.$modelValue.key)
+                    return false;
+            }
             return true;
         },
         dragStop : (event) => {
-            console.log("dragStop" + event);
+            console.log("dragStop");
+            console.log(event);
         },
 
         beforeDrop : (event) => {
-            console.log("beforeDrop" + event);
+            console.log("beforeDrop");
+            console.log(event);
         },
     };
 
-    showKey(key){
-        return key!=='draggables'?true:false;
-    }
 }

@@ -1,3 +1,4 @@
+import _ = require("lodash");
 export class Parser{
     private schema;
     result = {
@@ -24,10 +25,39 @@ export class Parser{
         }
     }
 
+    getDraggables(){
+        var result=[];
+        var schema = this.getSchema().draggables;
+        for(var i in schema){
+            var item = {};
+            item["key"] = i;
+            item["properties"] = _.get(schema,i);
+            result.push(item);
+        }
+        return result;
+    }
+
+    getRootElement(){
+        var schema = this.getSchema();
+        var result = [];
+        var item = {};
+        item["key"] = 'rootElement';
+        item["properties"] = _.get(schema,'rootElement');
+        item["nodes"] = [];
+        result.push(item);
+
+        console.log("getRootElement");
+        console.log(result);
+
+        return result;
+    }
+
     getSchema(){
         this.schema = JSON.stringify(require("../resource/metaschema.json"));
         this.schema = JSON.parse(this.schema);
         this.result.rootElement = this.parseSchema(this.schema);
+        console.log("parser output");
+        console.log(this.result);
         return this.result;
     }
 }

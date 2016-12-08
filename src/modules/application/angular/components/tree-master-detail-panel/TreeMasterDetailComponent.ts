@@ -2,18 +2,22 @@ import {Parser} from "../parser/Parser";
 
 export class TreeMasterDetailComponent implements ng.IComponentOptions {
     public controller: Function = TreeMasterDetailController;
-    public template : string = require('./TreeMasterDetailComponent.html')
+    public template: string = require('./TreeMasterDetailComponent.html');
+    public bindings: any = {
+        onSelectElement : '&'
+    };
 }
 export class TreeMasterDetailController {
+    public onSelectElement: Function;
     private parser: Parser;
     static $inject = ['parser'];
 
     treelist;
+    data;
+    schema;
 
     constructor(parser:Parser){
-
         this.treelist = parser.getRootElement();
-
     }
 
     mastertreeOptions = {
@@ -39,4 +43,17 @@ export class TreeMasterDetailController {
         },
     };
 
+    showKey(key){
+        return key!=='draggables'?true:false;
+    }
+
+    selectElement(node){
+        // console.log("Element selected", node);
+        this.schema = {
+          type: "object",
+          properties: node.properties
+        };
+        this.data = node.value ? node.value : {};
+        this.onSelectElement({schema: this.schema, data:this.data});
+    }
 }

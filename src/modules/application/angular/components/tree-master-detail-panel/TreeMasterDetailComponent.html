@@ -4,11 +4,11 @@
     </div>
     <script type="text/ng-template" id="nodes_renderer.html">
         <div ui-tree-handle ng-click="$ctrl.selectElement(node)">
-            {{node.key}}
+            {{$ctrl.getLabel(node)}}
         </div>
-        <ol ui-tree-nodes="" ng-model="node.nodes">
-            <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
-                {{node}}
+        <ol ui-tree-nodes="" ng-model="node.uitreeNodes[key]" ng-repeat="(key, value) in node.draggables"
+          ng-init="$ctrl.prepareNode(node, key)">
+            <li ng-repeat="node in node.uitreeNodes[key]" ui-tree-node ng-include="'nodes_renderer.html'">
             </li>
         </ol>
     </script>

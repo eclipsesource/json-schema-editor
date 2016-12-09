@@ -5,9 +5,9 @@ export class JsonSchemaEditorApplicationComponent implements ng.IComponentOption
 
 export class JsonSchemaEditorApplicationController{
     public schema;
-    public data = "";
+    public selectedElement = "";
     public selectElement(schema, data){
         this.schema = schema;
-        this.data = data;
+        this.selectedElement = data;
     }
 }

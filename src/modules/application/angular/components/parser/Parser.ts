@@ -1,4 +1,5 @@
 import _ = require("lodash");
+import {PaletteItem} from "../model";
 export class Parser{
     private schema;
     result = {
@@ -22,10 +23,13 @@ export class Parser{
                           let child : PaletteItem = {
                             'key': key,
                             'properties': schema.properties[key]["items"],
-                            'draggables': {}
+                            'draggables': {},
+                            'value': {},
+                            'uitreeNodes':{}
                           };
                           this.parseSchema(schema.properties[key]["items"], child);
                           paletteItem.draggables[key] = child;
+                          paletteItem.uitreeNodes[key]=[];
                         }
                     }
                     // schema.properties[key] = this.parseSchema(schema.properties[key]);
@@ -88,15 +92,11 @@ export class Parser{
         this.rootElement = {
           'key': 'rootElement',
           'properties': this.schema,
-          'draggables': {}
+          'draggables': {},
+          'value': {},
+          'uitreeNodes':{}
         };
         this.parseSchema(this.schema, this.rootElement);
         return this.result;
     }
 }
-
-interface PaletteItem {
-    key: string;
-    properties: Object;
-    draggables: { [key:string]:PaletteItem; };
-  }

@@ -1,4 +1,5 @@
 import {Parser} from "../parser/Parser";
+import {PaletteItem} from "../model";
 
 export class TreeMasterDetailComponent implements ng.IComponentOptions {
     public controller: Function = TreeMasterDetailController;
@@ -21,17 +22,17 @@ export class TreeMasterDetailController {
     mastertreeOptions = {
         dropped: (event) => {
             console.log(event);
-            // event.dest.value[event.dest.nodesScope.key] = event.source.value;
-
+            let value = event.dest.nodesScope.$nodeScope.$modelValue.value;
+            let key = event.source.nodeScope.$modelValue.key;
+            value[key].splice(event.source.index, 1);
+            value[key].splice(event.dest.index,0,event.source.nodeScope.$modelValue.value);
         },
         accept: (sourceNodeScope, destNodesScope, destIndex) => {
-            //check if destnode and parent node are same and return false if true to avoid unlimited nesting
-            // if(destNodesScope.$parent.$modelValue){
-            //     if(sourceNodeScope.item.key===destNodesScope.$parent.$modelValue.key)
-            //         return false;
-            // }
-            console.log("accept called");
-            return true;
+            let nodeScope = destNodesScope.$nodeScope;
+            if(nodeScope==undefined)
+              return false;
+            let result = destNodesScope.$nodeScope.$modelValue.draggables.hasOwnProperty(sourceNodeScope.$modelValue.key);
+            return result;
         },
         dragStop : (event) => {
             console.log("dragStop");
@@ -47,18 +48,11 @@ export class TreeMasterDetailController {
         }
     };
 
-    prepareNode(node, key){
-      if (node.uitreeNodes == undefined){
-        node.uitreeNodes = {};
-      }
-      node.uitreeNodes[key] = [];
-    }
-
     showKey(key){
         return key!=='draggables'?true:false;
     }
 
-    selectElement(node){
+    selectElement(node:PaletteItem){
         console.log("Element selected", node);
         if (node.value == undefined) {
           node.value = {};
@@ -66,12 +60,23 @@ export class TreeMasterDetailController {
         this.onSelectElement({schema: node.properties, data:node.value});
     }
 
-    getLabel(node){
-      let firstProperty = Object.keys(node.properties.properties)[0];
+    getLabel(node:PaletteItem){
+      let firstProperty = Object.keys(node.properties['properties'])[0];
       if (node.value == undefined) return node.key;
       let result = node.value[firstProperty];
       if (result == undefined) {
         return node.key;
+      }
+      return result;
+    }
+    getChildren(node:PaletteItem,key:string):Array<Object>{
+      let result = node.uitreeNodes[key];
+      if(!node.value.hasOwnProperty(key))
+        return result;
+      for(let i=node.uitreeNodes[key].length;i<node.value[key].length;i++){
+        let child = JSON.parse(JSON.stringify(node.draggables[key]));
+        child.value = node.value[key][i];
+        result.push(child);
       }
       return result;
     }

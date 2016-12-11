@@ -13,8 +13,6 @@ export class TreeMasterDetailController {
     static $inject = ['parser'];
 
     treelist;
-    data;
-    schema;
 
     constructor(parser:Parser){
         this.treelist = parser.getRootElement();
@@ -48,12 +46,23 @@ export class TreeMasterDetailController {
     }
 
     selectElement(node){
-        // console.log("Element selected", node);
-        this.schema = {
+        let schema = {
           type: "object",
           properties: node.properties
         };
-        this.data = node.value ? node.value : {};
-        this.onSelectElement({schema: this.schema, data:this.data});
+        if (node.value == undefined) {
+          node.value = {};
+        }
+        this.onSelectElement({schema: schema, data: node.value});
+    }
+
+    getLabel(node){
+      if (node.value == undefined) return node.key;
+      let firstProperty = Object.keys(node.value)[0];
+      let result = node.value[firstProperty];
+      if (result == undefined) {
+        return node.key;
+      }
+      return result;
     }
 }

@@ -1,10 +1,10 @@
 <div class="column">
     <div>
-        <h3>Tree Master Detail</h3>
+        <h3>Instance</h3>
     </div>
     <script type="text/ng-template" id="nodes_renderer.html">
         <div ui-tree-handle ng-click="$ctrl.selectElement(node)">
-            {{node.key}}
+            {{$ctrl.getLabel(node)}}
         </div>
         <ol ui-tree-nodes="" ng-model="node.nodes">
             <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">

@@ -1,8 +1,4 @@
-<div class="column">
-    <div>
-        <h3>Instance</h3>
-    </div>
-    <script type="text/ng-template" id="nodes_renderer.html">
+<script type="text/ng-template" id="nodes_renderer.html">
         <div ui-tree-handle ng-click="$ctrl.selectElement(node)">
             {{$ctrl.getLabel(node)}}
         </div>
@@ -17,5 +13,3 @@
             <li ng-repeat="node in $ctrl.treelist" ui-tree-node ng-include="'nodes_renderer.html'"></li>
         </ol>
     </div>
-
-</div>

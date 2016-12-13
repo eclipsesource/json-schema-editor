@@ -1,0 +1,114 @@
+/* General
+-------------------------------------------------- */
+
+html, body {
+    min-height:100%;
+    height:100%;
+}
+
+#content {
+    height: -moz-calc(100% - 50px);
+    height: -webkit-calc(100% - 50px);
+    height: -o-calc(100% - 50px);
+    height: calc(100% - 50px);
+}
+
+/* Navbar
+-------------------------------------------------- */
+
+#json-nav.navbar-default .navbar-brand {
+    color: #ffffff;
+}
+#json-nav.navbar-default {
+    font-size: 14px;
+    background-color: #428bca;
+    border-width: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+}
+#json-nav.navbar-default .navbar-nav>li>a {
+    color: #ffffff;
+    background-color: #428bca;
+}
+#json-nav.navbar-default .navbar-nav>li>a:hover,
+#json-nav.navbar-default .navbar-nav>li>a:focus {
+    color: #ffffff;
+    background-color: #428bca;
+}
+#json-nav.navbar-default .navbar-nav>.active>a,
+#json-nav.navbar-default .navbar-nav>.active>a:hover,
+#json-nav.navbar-default .navbar-nav>.active>a:focus {
+    color: #ffffff;
+    background-color: #428bca;
+}
+#json-nav.navbar-default .navbar-toggle {
+    border-color: #428bca;
+}
+#json-nav.navbar-default .navbar-toggle:hover,
+#json-nav.navbar-default .navbar-toggle:focus {
+    background-color: #428bca;
+}
+#json-nav.navbar-default .navbar-toggle .icon-bar {
+    background-color: #428bca;
+}
+#json-nav.navbar-default .navbar-toggle:hover .icon-bar,
+#json-nav.navbar-default .navbar-toggle:focus .icon-bar {
+    background-color: #428bca;
+}
+
+
+/* Full height columns
+-------------------------------------------------- */
+.row.fullheight {
+    display: flex;
+    flex-wrap: wrap;
+    height:100%;
+}
+.row.fullheight > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
+.row.fullheight {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.row.fullheight > [class*='col-'] {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+
+.side-col {
+    background-color: #E4F0FB;
+    border-left: 1px solid #9DC2E0;
+    border-right: 1px solid #9DC2E0;
+}
+
+.side-col h3 {
+    background-color: #BBD6ED;
+    border-bottom: 1px solid #9DC2E0;
+    margin: 0 -15px 15px;
+    padding: 15px;
+}
+
+.side-col .angular-ui-tree-node {
+    margin-bottom:10px;
+}
+
+tree-master-detail-component {
+    padding:15px;
+}

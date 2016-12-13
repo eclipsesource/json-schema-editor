@@ -1,17 +1,11 @@
-<div class="column">
+<h3>Palette</h3>
 
-    <div>
-        <h3>Palette</h3>
-    </div>
-
-    <div ui-tree data-nodrop-enabled data-clone-enabled="true">
-        <ol ui-tree-nodes="" ng-model="$ctrl.itemlist">
-            <li ng-repeat="item in $ctrl.itemlist" ui-tree-node>
-                <div ui-tree-handle>
-                    {{item.key}}
-                </div>
-            </li>
-        </ol>
-    </div>
-
+<div ui-tree data-nodrop-enabled data-clone-enabled="true">
+    <ol ui-tree-nodes="" ng-model="$ctrl.itemlist">
+        <li ng-repeat="item in $ctrl.itemlist" ui-tree-node>
+            <div ui-tree-handle>
+                {{item.key}}
+            </div>
+        </li>
+    </ol>
 </div>

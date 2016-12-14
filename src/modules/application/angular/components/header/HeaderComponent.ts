@@ -4,8 +4,8 @@
 export class HeaderComponent implements ng.IComponentOptions {
     public controller: Function = HeaderController;
     public template: string = `
-        <div>
-            <h3>JSON Schema Editor</h3>
+        <div class="navbar-brand">
+            JSON Schema Editor
         </div>
             `;
 }

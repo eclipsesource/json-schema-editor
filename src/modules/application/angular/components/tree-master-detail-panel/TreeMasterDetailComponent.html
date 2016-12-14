@@ -1,20 +1,14 @@
-<div class="column">
-    <div>
-        <h3>Tree Master Detail</h3>
+<script type="text/ng-template" id="nodes_renderer.html">
+    <div ui-tree-handle ng-click="$ctrl.selectElement(node)">
+        {{$ctrl.getLabel(node)}}
     </div>
-    <script type="text/ng-template" id="nodes_renderer.html">
-        <div ui-tree-handle ng-click="$ctrl.selectElement(node)">
-            {{$ctrl.getLabel(node)}}
-        </div>
-        <ol ui-tree-nodes="" ng-model="node.uitreeNodes[key]" ng-repeat="(key, value) in node.draggables">
-            <li ng-repeat="node in $ctrl.getChildren(node,key)" ui-tree-node ng-include="'nodes_renderer.html'">
-            </li>
-        </ol>
-    </script>
-    <div ui-tree="$ctrl.mastertreeOptions" data-drag-delay="300">
-        <ol ui-tree-nodes="" ng-model="$ctrl.treelist" data-nodrop-enabled="true" id="tree-root">
-            <li ng-repeat="node in $ctrl.treelist" ui-tree-node ng-include="'nodes_renderer.html'"></li>
-        </ol>
-    </div>
-
+    <ol ui-tree-nodes="" ng-model="node.uitreeNodes[key]" ng-repeat="(key, value) in node.draggables">
+        <li ng-repeat="node in $ctrl.getChildren(node,key)" ui-tree-node ng-include="'nodes_renderer.html'">
+        </li>
+    </ol>
+</script>
+<div ui-tree="$ctrl.mastertreeOptions" data-drag-delay="300">
+    <ol ui-tree-nodes="" ng-model="$ctrl.treelist" data-nodrop-enabled="true" id="tree-root">
+        <li ng-repeat="node in $ctrl.treelist" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+    </ol>
 </div>

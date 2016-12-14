@@ -1,26 +1,20 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="row">
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <header-component></header-component>
-                    </div>
-                </div>
-            </nav>
+<nav id="json-nav" class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <header-component></header-component>
         </div>
-
-        <div class="column">
-            <div class="col-md-4">
-                <item-component></item-component>
-            </div>
-            <div class="col-md-4">
-                <tree-master-detail-component on-select-element="$ctrl.selectElement(schema, data)"></tree-master-detail-component>
-            </div>
-            <div class="col-md-4">
-                <properties-component schema="$ctrl.schema" data="$ctrl.selectedElement"></properties-component>
-            </div>
+    </div>
+</nav>
+<div id="content" class="container-fluid">
+    <div class="row fullheight">
+        <div class="col-md-2 side-col">
+            <item-component></item-component>
         </div>
-
+        <div class="col-md-7">
+            <tree-master-detail-component on-select-element="$ctrl.selectElement(schema, data)"></tree-master-detail-component>
+        </div>
+        <div class="col-md-3 side-col">
+            <properties-component schema="$ctrl.schema" data="$ctrl.selectedElement"></properties-component>
+        </div>
     </div>
 </div>

@@ -16,6 +16,10 @@ html, body {
 /* Navbar
 -------------------------------------------------- */
 
+#json-nav.navbar .navbar-default{
+    text-align: center;
+}
+
 #json-nav.navbar-default .navbar-brand {
     color: #ffffff;
 }

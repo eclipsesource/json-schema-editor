@@ -10,9 +10,7 @@ export class ItemController {
     itemlist;
 
     constructor(parser:Parser){
-
         this.itemlist = parser.getDraggables();
-
     }
 
     mastertreeOptions = {

@@ -7,8 +7,38 @@
         </li>
     </ol>
 </script>
-<div ui-tree="$ctrl.mastertreeOptions" data-drag-delay="300">
+<div ui-tree="$ctrl.mastertreeOptions" data-drag-delay="300" style="height:600px;">
     <ol ui-tree-nodes="" ng-model="$ctrl.treelist" data-nodrop-enabled="true" id="tree-root">
         <li ng-repeat="node in $ctrl.treelist" ui-tree-node ng-include="'nodes_renderer.html'"></li>
     </ol>
+</div>
+
+<hr/>
+<div>
+    <div class="col-sm-8">
+        <b>LIVE DROP LOG:</b> <br/>
+        <li ng-repeat="log in $ctrl.droplog | orderBy:'-' | limitTo:10">
+            {{log.string}}
+        </li>
+    </div>
+
+    <div class="col-sm-4" ng-show="$ctrl.showHintTree">
+        <b>HINT TREE:</b> <br/>
+        <div ui-tree>
+            <ol ui-tree-nodes="" ng-model="$ctrl.hinttree">
+                <li ng-repeat="item in $ctrl.hinttree" ui-tree-node>
+                    <div ui-tree-handle>
+                        {{item.title}}
+                    </div>
+                    <ol ui-tree-nodes="" ng-model="item.nodes">
+                        <li ng-repeat="subItem in item.nodes" ui-tree-node>
+                            <div ui-tree-handle>
+                                {{subItem}}
+                            </div>
+                        </li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+    </div>
 </div>

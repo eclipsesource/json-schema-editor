@@ -5,3 +5,4 @@ typings
 out
 typings
 .idea/
+src/modules/application/angular/components/resource/metaschema.json

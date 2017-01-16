@@ -86,8 +86,9 @@ export class TreeMasterDetailController {
     }
 
     getLabel(node:PaletteItem){
-        let firstProperty = Object.keys(node.properties['properties'])[0];
         if (node.value == undefined) return node.key;
+        if (node.value["key"] != undefined) return node.value["key"];
+        let firstProperty = Object.keys(node.properties['properties'])[0];
         let result = node.value[firstProperty];
         if (result == undefined) {
             return node.key;
@@ -96,9 +97,7 @@ export class TreeMasterDetailController {
     }
 
     getChildren(node:PaletteItem,key:string):Array<Object>{
-
         let result = node.uitreeNodes[key];
-
         this.droppoints = node.uitreeNodes[key];
         if(!node.value.hasOwnProperty(key)){
             return result;

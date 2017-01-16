@@ -1,4 +1,5 @@
 import {Parser} from "../parser/Parser";
+import {PaletteItem} from "../model";
 
 export class TreeMasterDetailComponent implements ng.IComponentOptions {
     public controller: Function = TreeMasterDetailController;
@@ -11,58 +12,103 @@ export class TreeMasterDetailController {
     public onSelectElement: Function;
     private parser: Parser;
     static $inject = ['parser'];
+    private treelist;
+    private droppoints=[];
+    private droplog=[];
+    private hinttree;
 
-    treelist;
+    private showHintTree=false;
 
     constructor(parser:Parser){
-        this.treelist = parser.getRootElement();
+        this.treelist = [parser.getRootElement()];
     }
 
     mastertreeOptions = {
         dropped: (event) => {
-            console.log(event);
+            //console.log(event);
+            let value = event.dest.nodesScope.$nodeScope.$modelValue.value;
+            let key = event.source.nodeScope.$modelValue.key;
+            value[key].splice(event.source.index, 1);
+            value[key].splice(event.dest.index,0,event.source.nodeScope.$modelValue.value);
         },
         accept: (sourceNodeScope, destNodesScope, destIndex) => {
-            //check if destnode and parent node are same and return false if true to avoid unlimited nesting
-            if(destNodesScope.$parent.$modelValue){
-                if(sourceNodeScope.item.key===destNodesScope.$parent.$modelValue.key)
-                    return false;
+            let nodeScope = destNodesScope.$nodeScope;
+            if(nodeScope==undefined)
+                return false;
+            let result = destNodesScope.$nodeScope.$modelValue.draggables.hasOwnProperty(sourceNodeScope.$modelValue.key);
+
+            let log={};
+            let sourcekey=sourceNodeScope.$modelValue.key;
+            let destkey=destNodesScope.$nodeScope.$modelValue.key;
+            if(result===false){
+                log["string"]="ERROR: Cannot drop "+sourcekey+" on "+destkey;
+                log["timestamp"]=Date.now();
+                this.hinttree=[];
+                let hint={};
+                hint["title"]=destkey;
+                hint["nodes"]=[];
+                for(let obj in nodeScope.$modelValue.draggables)
+                    hint["nodes"].push(obj);
+                this.hinttree.push(hint);
+                this.showHintTree=true;
+            } else if(result===true){
+                log["string"] = "SUCCESS: Dropped "+sourcekey+" on "+destkey;
+                log["timestamp"] = Date.now();
+                this.showHintTree=false;
             }
-            return true;
+            this.droplog.push(log);
+            return result;
         },
         dragStop : (event) => {
-            console.log("dragStop");
-            console.log(event);
+            //console.log("dragStop");
+            //console.log(event);
         },
 
         beforeDrop : (event) => {
-            console.log("beforeDrop");
-            console.log(event);
+            //console.log("beforeDrop");
+            //console.log(event);
         },
+        dragMove:(event) => {
+            //console.log("dragMove called");
+        }
     };
 
     showKey(key){
         return key!=='draggables'?true:false;
     }
 
-    selectElement(node){
-        let schema = {
-          type: "object",
-          properties: node.properties
-        };
+    selectElement(node:PaletteItem){
+        console.log("Element selected", node);
         if (node.value == undefined) {
-          node.value = {};
+            node.value = {};
         }
-        this.onSelectElement({schema: schema, data: node.value});
+        this.onSelectElement({schema: node.properties, data:node.value});
     }
 
-    getLabel(node){
-      if (node.value == undefined) return node.key;
-      let firstProperty = Object.keys(node.value)[0];
-      let result = node.value[firstProperty];
-      if (result == undefined) {
-        return node.key;
-      }
-      return result;
+    getLabel(node:PaletteItem){
+        let firstProperty = Object.keys(node.properties['properties'])[0];
+        if (node.value == undefined) return node.key;
+        let result = node.value[firstProperty];
+        if (result == undefined) {
+            return node.key;
+        }
+        return result;
+    }
+
+    getChildren(node:PaletteItem,key:string):Array<Object>{
+
+        let result = node.uitreeNodes[key];
+
+        this.droppoints = node.uitreeNodes[key];
+        if(!node.value.hasOwnProperty(key)){
+            return result;
+        }
+        for(let i=node.uitreeNodes[key].length;i<node.value[key].length;i++) {
+            let child = JSON.parse(JSON.stringify(node.draggables[key]));
+            child.value = node.value[key][i];
+            result.push(child);
+        }
+        this.droppoints = result;
+        return result;
     }
 }

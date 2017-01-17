@@ -33,7 +33,7 @@ export class Parser{
                             paletteItem.uitreeNodes[this.pluralize.singular(key)]=[];
                         }
                     } else if (schema.properties[key]["type"] == "object") {
-                        // Now only additionalProperties, without properties
+                        // additionalProperties itself is an object, which should be an palette item
                         if (schema.properties[key]["additionalProperties"]["type"] == "object") {
                             let child : PaletteItem = {
                                 'key': this.pluralize.singular(key),
@@ -42,7 +42,7 @@ export class Parser{
                                 'value': {},
                                 'uitreeNodes':{}
                             };
-                            schema.properties[key]["additionalProperties"]["properties"]["key"]={"type": "string"};
+                            schema.properties[key]["additionalProperties"]["properties"]["objectKey"]={"type": "string"};
                             this.parseSchema(schema.properties[key]["additionalProperties"], child);
                             paletteItem.draggables[this.pluralize.singular(key)] = child;
                             paletteItem.uitreeNodes[this.pluralize.singular(key)]=[];

@@ -87,7 +87,7 @@ export class TreeMasterDetailController {
 
     getLabel(node:PaletteItem){
         if (node.value == undefined) return node.key;
-        if (node.value["key"] != undefined) return node.value["key"];
+        if (node.value["objectKey"] != undefined) return node.value["objectKey"];
         let firstProperty = Object.keys(node.properties['properties'])[0];
         let result = node.value[firstProperty];
         if (result == undefined) {

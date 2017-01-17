@@ -9,15 +9,15 @@ export class PropertiesComponent implements ng.IComponentOptions {
     }
 }
 export class PropertiesController {
-  schema;
-  data;
-  static $inject = ['$scope'];
-  constructor($scope:IScope) {
-            $scope.$on('modelChanged', () => {
-                console.log("changes");
-            });
-  }
-  show(){
-    console.log(this.schema, this.data);
-  }
+    private schema;
+    private data;
+    static $inject = ['$scope'];
+    constructor($scope:IScope) {
+        $scope.$on('modelChanged', () => {
+            console.log("changes");
+        });
+    }
+    show(){
+        console.log(this.schema, this.data);
+    }
 }

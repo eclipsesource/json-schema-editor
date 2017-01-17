@@ -1,7 +1,7 @@
 {
-  "name": "angular-typescript-webpack",
+  "name": "json-schema-editor",
   "version": "0.1.2",
-  "description": "A seed project for a largescale angular architecture in webpack and typescript",
+  "description": "A generic editor based on json schema.",
   "main": "/",
   "scripts": {
     "start": "webpack --config webpack/webpack.dev.js --watch --NODE_ENV=dev",
@@ -9,20 +9,24 @@
     "build": "webpack --config webpack/webpack.build.js --NODE_ENV=production",
     "postinstall": "typings i"
   },
-  "author": "Brecht Billiet <billietbrecht@gmail.com>",
+  "author": "Eclipse Source<eclipsesource.com>",
   "license": "MIT",
   "dependencies": {
     "angular": "1.5.5",
     "angular-material": "~1.1.1",
     "angular-route": "1.5.5",
+    "angular-sanitize": "~1.6.1",
+    "angular-ui-bootstrap": "~2.4.0",
     "angular-ui-tree": "~2.22.1",
     "bootstrap": "3.3.6",
     "buffer-shims": "~1.0.0",
     "font-awesome": "4.6.1",
     "jquery": "2.2.4",
     "json-loader": "~0.5.4",
+    "json-refs": "~2.1.6",
     "jsonforms": "~1.4.0",
     "lodash": "4.12.0",
+    "ng-sanitize": "0.0.2",
     "pluralize": "~3.1.0"
   },
   "devDependencies": {
@@ -31,6 +35,7 @@
     "babel-istanbul": "0.8.0",
     "browser-sync": "2.12.8",
     "browser-sync-webpack-plugin": "1.0.1",
+    "browserify": "~13.3.0",
     "compression-webpack-plugin": "0.3.1",
     "css-loader": "0.23.1",
     "file-loader": "0.8.5",
@@ -39,9 +44,11 @@
     "istanbul-instrumenter-loader": "0.2.0",
     "jasmine": "2.4.1",
     "karma": "0.13.22",
+    "karma-browserify": "~5.1.0",
     "karma-coverage": "1.0.0",
     "karma-jasmine": "1.0.2",
     "karma-phantomjs-launcher": "1.0.0",
+    "karma-requirejs": "~1.1.0",
     "karma-sourcemap-loader": "0.3.7",
     "karma-spec-reporter": "0.0.26",
     "karma-typescript-preprocessor": "0.2.0",
@@ -50,6 +57,7 @@
     "phantomjs-polyfill": "0.0.2",
     "phantomjs-prebuilt": "2.1.7",
     "raw-loader": "0.5.1",
+    "requirejs": "~2.3.2",
     "sass-loader": "3.2.0",
     "style-loader": "0.13.1",
     "ts-loader": "0.8.2",
@@ -57,6 +65,7 @@
     "typings": "1.0.4",
     "url-loader": "0.5.7",
     "wallaby-webpack": "0.0.22",
+    "watchify": "~3.8.0",
     "webpack": "1.13.1"
   }
 }

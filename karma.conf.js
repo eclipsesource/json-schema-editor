@@ -1,7 +1,7 @@
 'use strict';
 
 var webpackConfig = require('./webpack/webpack.test.js');
-require('phantomjs-polyfill')
+require('phantomjs-polyfill');
 webpackConfig.entry = {};
 
 module.exports = function (config) {
@@ -17,7 +17,10 @@ module.exports = function (config) {
         autoWatchBatchDelay: 300,
         files: [
             './node_modules/phantomjs-polyfill/bind-polyfill.js',
+            './node_modules/requirejs/require.js',
+            //'./node_modules/karma-requirejs/lib/adapter.js',
             './src/test.ts'
+            //'./src/modules/util/test.spec.ts'
         ],
         babelPreprocessor: {
             options: {

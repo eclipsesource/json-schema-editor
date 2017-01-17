@@ -1,5 +1,7 @@
 import _ = require("lodash");
 import {PaletteItem} from "../model";
+import {CustomException} from "../customException/exception";
+
 export class Parser{
     private schema;
     result = {
@@ -9,16 +11,32 @@ export class Parser{
     private rootElement: PaletteItem;
     private pluralize = require('pluralize');
 
+    private customException : CustomException;
+    static $inject = ['customException'];
+
     constructor(){
-        this.getSchema();
+        try {
+            this.getSchema();
+        }catch(ex){
+            let customException:CustomException;
+            customException.showParseExceptionDialog(ex.message);
+            customException.logException(ex.message);
+        }
     }
 
     parseSchema(schema, paletteItem:PaletteItem): void{
         switch (schema.type){
             case "object":
-                if (!schema.properties) {throw new Error("Invalid schema.");}
+                if (!schema.properties) {throw new Error("Invalid schema. HINT : Possibly no properties present for the schema.");}
                 for (var key in schema.properties) {
                     // Addables are within an array with type object
+                    if(schema.properties[key]["$ref"]!==undefined){
+                        let jsonrefs = require('json-refs');
+                        console.log(jsonrefs.getRefDetails(schema.properties[key]));
+                        jsonrefs.resolveRefs(schema.properties[key]).then(function(ref){
+                            console.log(ref);
+                        });
+                    }
                     if (schema.properties[key]["type"] == "array") {
                         if (schema.properties[key]["items"]["type"] == "object") {
                             let child : PaletteItem = {
@@ -67,6 +85,7 @@ export class Parser{
     }
 
     getRootElement(){
+        //console.log(JSON.stringify(this.rootElement));
         return this.rootElement;
     }
 

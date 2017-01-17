@@ -11,7 +11,10 @@ export class TreeMasterDetailComponent implements ng.IComponentOptions {
 export class TreeMasterDetailController {
     public onSelectElement: Function;
     private parser: Parser;
-    static $inject = ['parser'];
+    static $inject = ['parser','$mdDialog'];
+
+    private mdDialog;
+
     private treelist;
     private droppoints=[];
     private droplog=[];
@@ -19,7 +22,8 @@ export class TreeMasterDetailController {
 
     private showHintTree=false;
 
-    constructor(parser:Parser){
+    constructor(parser:Parser,mdDialog: $mdDialog){
+        this.mdDialog = mdDialog;
         this.treelist = [parser.getRootElement()];
     }
 
@@ -86,9 +90,8 @@ export class TreeMasterDetailController {
     }
 
     getLabel(node:PaletteItem){
-        if (node.value == undefined) return node.key;
-        if (node.value["objectKey"] != undefined) return node.value["objectKey"];
         let firstProperty = Object.keys(node.properties['properties'])[0];
+        if (node.value == undefined) return node.key;
         let result = node.value[firstProperty];
         if (result == undefined) {
             return node.key;
@@ -97,7 +100,9 @@ export class TreeMasterDetailController {
     }
 
     getChildren(node:PaletteItem,key:string):Array<Object>{
+
         let result = node.uitreeNodes[key];
+
         this.droppoints = node.uitreeNodes[key];
         if(!node.value.hasOwnProperty(key)){
             return result;
@@ -109,5 +114,15 @@ export class TreeMasterDetailController {
         }
         this.droppoints = result;
         return result;
+    }
+
+    exportJSON(){
+
+        this.mdDialog.show(
+            this.mdDialog.confirm()
+            .title("Result JSON")
+            .htmlContent(`<pre>`+JSON.stringify(this.treelist[0].value,undefined,2)+`</pre>`)
+            .ariaLabel('resultjson')
+            .ok('OK'));
     }
 }

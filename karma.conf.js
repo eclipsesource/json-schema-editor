@@ -18,9 +18,7 @@ module.exports = function (config) {
         files: [
             './node_modules/phantomjs-polyfill/bind-polyfill.js',
             './node_modules/requirejs/require.js',
-            //'./node_modules/karma-requirejs/lib/adapter.js',
             './src/test.ts'
-            //'./src/modules/util/test.spec.ts'
         ],
         babelPreprocessor: {
             options: {

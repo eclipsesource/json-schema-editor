@@ -9,7 +9,7 @@
     "build": "webpack --config webpack/webpack.build.js --NODE_ENV=production",
     "postinstall": "typings i"
   },
-  "author": "Eclipse Source<eclipsesource.com>",
+  "author": "Eclipse Source <eclipsesource.com>",
   "license": "MIT",
   "dependencies": {
     "angular": "1.5.5",

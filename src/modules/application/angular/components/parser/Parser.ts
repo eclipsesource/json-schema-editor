@@ -15,11 +15,11 @@ export class Parser{
     static $inject = ['customException'];
 
     constructor(){
+        let customException:CustomException = new CustomException();
         try {
             this.getSchema();
         }catch(ex){
-            let customException:CustomException;
-            customException.showParseExceptionDialog(ex.message);
+            customException.showParDseExceptionDialog(ex.message);
             customException.logException(ex.message);
         }
     }
@@ -30,13 +30,11 @@ export class Parser{
                 if (!schema.properties) {throw new Error("Invalid schema. HINT : Possibly no properties present for the schema.");}
                 for (var key in schema.properties) {
                     // Addables are within an array with type object
-                    if(schema.properties[key]["$ref"]!==undefined){
+                    /*if(schema.properties[key]["$ref"]!==undefined){
                         let jsonrefs = require('json-refs');
-                        console.log(jsonrefs.getRefDetails(schema.properties[key]));
                         jsonrefs.resolveRefs(schema.properties[key]).then(function(ref){
-                            console.log(ref);
                         });
-                    }
+                    }*/
                     if (schema.properties[key]["type"] == "array") {
                         if (schema.properties[key]["items"]["type"] == "object") {
                             let child : PaletteItem = {

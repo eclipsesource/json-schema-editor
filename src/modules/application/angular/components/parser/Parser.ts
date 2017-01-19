@@ -19,7 +19,7 @@ export class Parser{
         try {
             this.getSchema();
         }catch(ex){
-            customException.showParDseExceptionDialog(ex.message);
+            customException.showParseExceptionDialog(ex.message);
             customException.logException(ex.message);
         }
     }
@@ -83,7 +83,6 @@ export class Parser{
     }
 
     getRootElement(){
-        //console.log(JSON.stringify(this.rootElement));
         return this.rootElement;
     }
 

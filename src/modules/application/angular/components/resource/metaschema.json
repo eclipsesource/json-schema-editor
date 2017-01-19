@@ -4,7 +4,7 @@
     "name": {
       "type": "string"
     },
-    "classes": {
+    "classes1": {
       "type": "array",
       "items": {
         "type": "object",
@@ -12,7 +12,56 @@
           "name": {
             "type": "string"
           },
-          "attributes": {
+          "attributes1a": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "visibility": {
+                  "type": "string",
+                  "enum": ["Public", "Private","Protected"]
+                },
+                "type": {
+                  "type": "string",
+                  "enum": ["Boolean","Integer","Real","String"]
+                }
+              }
+            }
+          },
+          "attributes1b": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "visibility": {
+                  "type": "string",
+                  "enum": ["Public", "Private","Protected"]
+                },
+                "type": {
+                  "type": "string",
+                  "enum": ["Boolean","Integer","Real","String"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "classes2": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "attributes2": {
             "type": "array",
             "items": {
               "type": "object",
@@ -34,6 +83,5 @@
         }
       }
     }
-
   }
 }

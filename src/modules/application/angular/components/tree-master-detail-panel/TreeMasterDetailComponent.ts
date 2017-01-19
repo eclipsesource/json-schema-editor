@@ -77,10 +77,6 @@ export class TreeMasterDetailController {
         }
     };
 
-    showKey(key){
-        return key!=='draggables'?true:false;
-    }
-
     selectElement(node:PaletteItem){
         console.log("Element selected", node);
         if (node.value == undefined) {

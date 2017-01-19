@@ -3,5 +3,5 @@ export class HeaderComponent implements ng.IComponentOptions {
     public template : string = require('./header.html');
 }
 export class HeaderController {
-    public schema = "asdasd";
+
 }

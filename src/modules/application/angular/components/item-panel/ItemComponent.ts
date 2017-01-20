@@ -12,12 +12,7 @@ export class ItemController {
 
     constructor(parser:Parser){
         let paletteItems = parser.getDraggables();
-        //this.itemlist = parser.getDraggables();
-
-        if(paletteItems[0]===undefined)
-            this.itemlist = "error";
-        else
-            this.itemlist = parser.getDraggables();
+        this.itemlist = paletteItems[0]===undefined?"error":paletteItems;
     }
 
     mastertreeOptions = {

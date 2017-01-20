@@ -11,7 +11,13 @@ export class ItemController {
     private pluralize = require('pluralize');
 
     constructor(parser:Parser){
-        this.itemlist = parser.getDraggables();
+        let paletteItems = parser.getDraggables();
+        //this.itemlist = parser.getDraggables();
+
+        if(paletteItems[0]===undefined)
+            this.itemlist = "error";
+        else
+            this.itemlist = parser.getDraggables();
     }
 
     mastertreeOptions = {
@@ -48,10 +54,4 @@ export class ItemController {
 
         beforeDrop : (event) => {
             // console.log("beforeDrop");
-            // console.log(event);
-        },
-        dragMove:(event) => {
-        //   console.log("dragMove called");
-        }
-    };
-}
+            // console.log(ev

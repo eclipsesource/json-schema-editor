@@ -24,7 +24,11 @@ export class TreeMasterDetailController {
 
     constructor(parser:Parser,mdDialog: $mdDialog){
         this.mdDialog = mdDialog;
-        this.treelist = [parser.getRootElement()];
+        let rootElement = parser.getRootElement();
+
+        // check if schema is valid or invalid
+        this.treelist = Object.keys(rootElement.draggables).length?[parser.getRootElement()]:"error";
+
     }
 
     mastertreeOptions = {
@@ -78,7 +82,7 @@ export class TreeMasterDetailController {
     };
 
     selectElement(node:PaletteItem){
-        console.log("Element selected", node);
+        //console.log("Element selected", node);
         if (node.value == undefined) {
             node.value = {};
         }

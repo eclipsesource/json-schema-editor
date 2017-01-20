@@ -28,12 +28,16 @@
 
 </script>
 
-<div layout="row" layout-padding>
+<div layout="row" layout-padding ng-if="$ctrl.treelist!='error'">
     <div flex></div>
     <div><button class="btn-info" ng-click="$ctrl.exportJSON()"><b>Export JSON</b></button></div>
 </div>
 
-<div class="row" layout-padding>
+<div ng-if="$ctrl.treelist=='error'">
+    <b>Invalid Schema</b>
+</div>
+
+<div class="row" layout-padding ng-if="$ctrl.treelist!='error'">
     <div ui-tree="$ctrl.mastertreeOptions" data-drag-delay="300" style="height:600px;">
         <ol ui-tree-nodes="" ng-model="$ctrl.treelist" data-nodrop-enabled="true" id="tree-root">
             <li ng-repeat="node in $ctrl.treelist" ui-tree-node ng-include="'nodes_renderer.html'"></li>
@@ -42,7 +46,8 @@
 </div>
 
 <hr/>
-<div>
+
+<div ng-if="$ctrl.treelist!='error'">
     <div class="col-sm-8">
         <b>LIVE DROP LOG:</b> <br/>
         <li ng-repeat="log in $ctrl.droplog | orderBy:'-' | limitTo:10">

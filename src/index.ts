@@ -1,4 +1,4 @@
-import "./modules/application/angular/index";
+import "./app/index.ts";
 import "angular";
 
 // load our default (non specific) css

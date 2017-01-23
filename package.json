@@ -20,6 +20,7 @@
     "angular-ui-tree": "~2.22.1",
     "bootstrap": "3.3.6",
     "buffer-shims": "~1.0.0",
+    "es6-promise": "~4.0.5",
     "font-awesome": "4.6.1",
     "jquery": "2.2.4",
     "json-loader": "~0.5.4",

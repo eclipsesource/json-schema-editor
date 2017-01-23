@@ -18,7 +18,7 @@ module.exports = function (config) {
         files: [
             './node_modules/phantomjs-polyfill/bind-polyfill.js',
             './node_modules/requirejs/require.js',
-            './src/test.ts'
+            'src/test.ts'
         ],
         babelPreprocessor: {
             options: {

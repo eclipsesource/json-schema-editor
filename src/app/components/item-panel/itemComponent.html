@@ -1,0 +1,14 @@
+<h3>Palette</h3>
+<div ui-tree="$ctrl.mastertreeOptions" ui-tree data-nodrop-enabled data-clone-enabled="true"
+     ng-if="$ctrl.itemlist!='error'">
+    <ol ui-tree-nodes="" ng-model="$ctrl.itemlist">
+        <li ng-repeat="item in $ctrl.itemlist" ui-tree-node>
+            <div ui-tree-handle>
+                {{item.key}}
+            </div>
+        </li>
+    </ol>
+</div>
+<div id="error-container" ng-if="$ctrl.itemlist=='error'">
+    <b>Invalid Schema. Failed to load palette items.</b>
+</div>

@@ -104,7 +104,7 @@ export class Parser{
         this.schema = JSON.parse(this.schema);
     }
 
-    resolveSchema(): Promise{
+    resolveSchema(): Promise<any>{
         var jsonrefs = require('json-refs');
         let jsonsrefsPromise = jsonrefs.resolveRefs(this.schema);
         return jsonsrefsPromise;

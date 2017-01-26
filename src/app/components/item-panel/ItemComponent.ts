@@ -52,3 +52,9 @@ export class ItemController {
         beforeDrop : (event) => {
             // console.log("beforeDrop");
             // console.log(ev
+        },
+        dragMove:(event) => {
+        //   console.log("dragMove called");
+        }
+    };
+}

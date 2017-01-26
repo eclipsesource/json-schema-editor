@@ -89,9 +89,14 @@ export class TreeMasterDetailController {
     }
 
     getLabel(node:PaletteItem){
-        let firstProperty = Object.keys(node.properties['properties'])[0];
         if (node.value == undefined) return node.key;
-        return node.value[firstProperty]==undefined?node.key:node.value[firstProperty];
+        if (node.value["objectKey"] != undefined) return node.value["objectKey"];
+        let firstProperty = Object.keys(node.properties['properties'])[0];
+        let result = node.value[firstProperty];
+        if (result == undefined) {
+            return node.key;
+        }
+        return result;
     }
 
     getChildren(node:PaletteItem,key:string):Array<Object>{

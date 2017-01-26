@@ -1,6 +1,9 @@
 <script type="text/ng-template" id="nodes_renderer.html">
     <div ui-tree-handle ng-click="$ctrl.selectElement(node)">
         {{$ctrl.getLabel(node)}}
+        <span class="glyphicon glyphicon-trash pull-right"
+                ng-click="remove(this); $ctrl.deleteElement(this)"
+                ng-hide="$ctrl.isRoot(node)"></span>
     </div>
 
     <ol ui-tree-nodes="" ng-model="node.uitreeNodes[key]" ng-repeat="(key, value) in node.draggables">

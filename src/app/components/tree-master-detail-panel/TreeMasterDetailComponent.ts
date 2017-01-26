@@ -12,14 +12,13 @@ export class TreeMasterDetailController {
     public onSelectElement: Function;
     private parser: Parser;
     static $inject = ['parser','$mdDialog'];
-
     private mdDialog;
+    private pluralize = require('pluralize');
 
     private treelist;
     private droppoints=[];
     private droplog=[];
     private hinttree;
-
     private showHintTree=false;
 
     constructor(parser:Parser,mdDialog: $mdDialog){
@@ -88,6 +87,23 @@ export class TreeMasterDetailController {
         this.onSelectElement({schema: node.properties, data:node.value});
     }
 
+    deleteElement(node){
+        var child = node.$parent.$modelValue;
+        var parent = node.$nodeScope.$parentNodeScope.$modelValue.value;
+        parent = parent[this.pluralize.plural(child.key)];
+        if (Array.isArray(parent)) {
+            if (parent.indexOf(child.value) != -1) {
+                parent.splice(parent.indexOf(child.value), 1);
+            }
+        } else if (typeof parent === 'object') {
+            delete parent[child.value.objectKey];
+        }
+    }
+
+    isRoot(node:PaletteItem){
+        return node.key == "rootElement";
+    }
+
     getLabel(node:PaletteItem){
         if (node.value == undefined) return node.key;
         if (node.value["objectKey"] != undefined) return node.value["objectKey"];
@@ -100,7 +116,6 @@ export class TreeMasterDetailController {
     }
 
     getChildren(node:PaletteItem,key:string):Array<Object>{
-
         let result = node.uitreeNodes[key];
         this.droppoints = node.uitreeNodes[key];
         if(!node.value.hasOwnProperty(key)){

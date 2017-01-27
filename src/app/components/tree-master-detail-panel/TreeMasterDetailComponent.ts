@@ -42,29 +42,36 @@ export class TreeMasterDetailController {
             let nodeScope = destNodesScope.$nodeScope;
             if(nodeScope==undefined)
                 return false;
-            let result = destNodesScope.$nodeScope.$modelValue.draggables.hasOwnProperty(sourceNodeScope.$modelValue.key);
-
-            let log={};
-            let sourcekey=sourceNodeScope.$modelValue.key;
-            let destkey=destNodesScope.$nodeScope.$modelValue.key;
-            if(result===false){
-                log["string"]="ERROR: Cannot drop "+sourcekey+" on "+destkey;
-                log["timestamp"]=Date.now();
-                this.hinttree=[];
-                let hint={};
-                hint["title"]=destkey;
-                hint["nodes"]=[];
-                for(let obj in nodeScope.$modelValue.draggables)
-                    hint["nodes"].push(obj);
-                this.hinttree.push(hint);
-                this.showHintTree=true;
-            } else if(result===true){
-                log["string"] = "SUCCESS: Dropped "+sourcekey+" on "+destkey;
-                log["timestamp"] = Date.now();
-                this.showHintTree=false;
-            }
-            this.droplog.push(log);
+            if(nodeScope.$modelValue !== undefined)
+               return false;
+            // let result = destNodesScope.$nodeScope.$modelValue.draggables.hasOwnProperty(sourceNodeScope.$modelValue.key);
+            // let result = destNodesScope.$parent.$parent.$parent.$parent.key==sourceNodeScope.$modelValue.key;
+            let result = nodeScope.key == sourceNodeScope.$modelValue.key;
             return result;
+
+            // let result = destNodesScope.$nodeScope.$modelValue.draggables.hasOwnProperty(sourceNodeScope.$modelValue.key);
+
+            // let log={};
+            // let sourcekey=sourceNodeScope.$modelValue.key;
+            // let destkey=destNodesScope.$nodeScope.$modelValue.key;
+            // if(result===false){
+            //     log["string"]="ERROR: Cannot drop "+sourcekey+" on "+destkey;
+            //     log["timestamp"]=Date.now();
+            //     this.hinttree=[];
+            //     let hint={};
+            //     hint["title"]=destkey;
+            //     hint["nodes"]=[];
+            //     for(let obj in nodeScope.$modelValue.draggables)
+            //         hint["nodes"].push(obj);
+            //     this.hinttree.push(hint);
+            //     this.showHintTree=true;
+            // } else if(result===true){
+            //     log["string"] = "SUCCESS: Dropped "+sourcekey+" on "+destkey;
+            //     log["timestamp"] = Date.now();
+            //     this.showHintTree=false;
+            // }
+            // this.droplog.push(log);
+            // return result;
         },
         dragStop : (event) => {
             //console.log("dragStop");

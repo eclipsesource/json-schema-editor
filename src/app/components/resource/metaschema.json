@@ -1,40 +1,10 @@
 {
   "definitions":{
-    "attribute1":{
-      "type":"array",
-      "items":{
-        "type":"object",
-        "properties":{
-          "name":{
-            "type":"string"
-          },
-          "visibility":{
-            "type":"string",
-            "enum":["Public","Private","Protected"]
-          },
-          "type":{
-            "type":"string",
-            "enum":["Boolean","Integer","Real","String"]
-          }
-        }
-      }
-    },
-    "attribute2":{
-      "type":"array",
-      "items":{
-        "type":"object",
-        "properties":{
-          "name":{
-            "type":"string"
-          },
-          "visibility":{
-            "type":"string",
-            "enum":["Public","Private","Protected"]
-          },
-          "type":{
-            "type":"string",
-            "enum":["Boolean","Integer","Real","String"]
-          }
+    "person":{
+      "type":"object",
+      "properties":{
+        "name":{
+          "type":"string"
         }
       }
     }
@@ -44,25 +14,29 @@
     "name":{
       "type":"string"
     },
-    "classes":{
-      "type":"array",
-      "items":{
-        "type":"object",
-        "properties":{
-          "name":{
-            "type":"string"
-          },
-          "attributes1":{
-            "$ref":"#/definitions/attribute1"
-          },
-          "attributes2":{
-            "$ref":"#/definitions/attribute2"
-          }
-        }
+        "courses":{
+       "type":"array",
+     "items":{
+      "type":"object",
+      "properties":{
+        "name":{
+          "type":"string"
+        },
+         "teachers":{
+         "type":"array",
+         "items":{
+           "$ref":"#/definitions/person"
+         }
+         },
+         "students":{
+         "type":"array",
+         "items":{
+           "$ref":"#/definitions/person"
+         }
+         }
       }
-    },
-    "attributes1":{
-      "$ref":"#/definitions/attribute1"
+    }
     }
   }
+  
 }

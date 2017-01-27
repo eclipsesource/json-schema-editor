@@ -6,9 +6,22 @@
                 ng-hide="$ctrl.isRoot(node)"></span>
     </div>
 
-    <ol ui-tree-nodes="" ng-model="node.uitreeNodes[key]" ng-repeat="(key, value) in node.draggables">
+    <!-- <ol ui-tree-nodes="" ng-model="node.uitreeNodes[key]" ng-repeat="(key, value) in node.draggables">
         <li ng-repeat="node in $ctrl.getChildren(node,key)" ui-tree-node ng-include="'nodes_renderer.html'">
         </li>
+    </ol> -->
+
+    <ol ui-tree-nodes="" ng-model="tempArr" data-nodrop-enabled="true" ng-init="tempArr=[]"><br/>
+          <li ui-tree-node ng-repeat="(key,value) in node.draggables" style="min-height:100px;border:1px solid;">
+          <div>
+            {{key}}
+          </div>
+            <ol ui-tree-nodes="" ng-model="node.uitreeNodes[key]"><br/>
+              <li ng-repeat="node in $ctrl.getChildren(node,key)" ui-tree-node ng-include="'nodes_renderer.html'">
+              
+              </li>
+            </ol>
+          </li>
     </ol>
 
 </script>

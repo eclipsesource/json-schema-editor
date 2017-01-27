@@ -1,6 +1,6 @@
 {
   "definitions":{
-    "attribute1":{
+    "room":{
       "type":"array",
       "items":{
         "type":"object",
@@ -8,61 +8,63 @@
           "name":{
             "type":"string"
           },
-          "visibility":{
-            "type":"string",
-            "enum":["Public","Private","Protected"]
-          },
           "type":{
             "type":"string",
-            "enum":["Boolean","Integer","Real","String"]
-          }
-        }
-      }
-    },
-    "attribute2":{
-      "type":"array",
-      "items":{
-        "type":"object",
-        "properties":{
-          "name":{
+            "enum":["Public","Private"]
+          },
+          "description":{
             "type":"string"
-          },
-          "visibility":{
-            "type":"string",
-            "enum":["Public","Private","Protected"]
-          },
-          "type":{
-            "type":"string",
-            "enum":["Boolean","Integer","Real","String"]
           }
         }
       }
     }
   },
-  "type":"object",
-  "properties":{
-    "name":{
-      "type":"string"
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
     },
-    "classes":{
-      "type":"array",
-      "items":{
-        "type":"object",
-        "properties":{
-          "name":{
-            "type":"string"
+    "Buildings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
           },
-          "attributes1":{
-            "$ref":"#/definitions/attribute1"
-          },
-          "attributes2":{
-            "$ref":"#/definitions/attribute2"
+          "street": { "type": "string" },
+          "city": { "type": "string" },
+          "state": { "type": "string" },
+          "Floors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "integer"
+                },
+                "Sections": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "Rooms":{
+                        "$ref":"#/definitions/room"
+                      }
+                    }
+                  }
+                },
+                "Rooms":{
+                  "$ref":"#/definitions/room"
+                }
+              }
+            }
           }
         }
       }
-    },
-    "attributes1":{
-      "$ref":"#/definitions/attribute1"
     }
   }
 }

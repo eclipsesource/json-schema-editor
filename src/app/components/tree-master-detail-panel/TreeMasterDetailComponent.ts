@@ -22,6 +22,7 @@ export class TreeMasterDetailController {
     private showHintTree=false;
 
     constructor(parser:Parser,mdDialog: $mdDialog){
+        this.parser = parser;
         this.mdDialog = mdDialog;
         let getRootElementPromise = parser.getRootElement();
         getRootElementPromise.then((res)=>{
@@ -42,7 +43,15 @@ export class TreeMasterDetailController {
             let nodeScope = destNodesScope.$nodeScope;
             if(nodeScope==undefined)
                 return false;
-            let result = destNodesScope.$nodeScope.$modelValue.draggables.hasOwnProperty(sourceNodeScope.$modelValue.key);
+            let result;
+
+            for(let key in destNodesScope.$nodeScope.$modelValue.draggables){
+                let item = destNodesScope.$nodeScope.$modelValue.draggables[key];
+                if(this.parser.findDefinitionKey(item)!==false)
+                    result=true;
+            }
+
+            //let result = destNodesScope.$nodeScope.$modelValue.draggables.hasOwnProperty(sourceNodeScope.$modelValue.key);
 
             let log={};
             let sourcekey=sourceNodeScope.$modelValue.key;

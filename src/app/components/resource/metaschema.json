@@ -1,42 +1,70 @@
 {
   "definitions":{
-    "person":{
-      "type":"object",
-      "properties":{
-        "name":{
-          "type":"string"
+    "room":{
+      "type":"array",
+      "items":{
+        "type":"object",
+        "properties":{
+          "name":{
+            "type":"string"
+          },
+          "type":{
+            "type":"string",
+            "enum":["Public","Private"]
+          },
+          "description":{
+            "type":"string"
+          }
         }
       }
     }
   },
-  "type":"object",
-  "properties":{
-    "name":{
-      "type":"string"
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
     },
-        "courses":{
-       "type":"array",
-     "items":{
-      "type":"object",
-      "properties":{
-        "name":{
-          "type":"string"
-        },
-         "teachers":{
-         "type":"array",
-         "items":{
-           "$ref":"#/definitions/person"
-         }
-         },
-         "students":{
-         "type":"array",
-         "items":{
-           "$ref":"#/definitions/person"
-         }
-         }
+    "Buildings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "street": { "type": "string" },
+          "city": { "type": "string" },
+          "state": { "type": "string" },
+          "Floors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "integer"
+                },
+                "Sections": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "Rooms":{
+                        "$ref":"#/definitions/room"
+                      }
+                    }
+                  }
+                },
+                "Rooms":{
+                  "$ref":"#/definitions/room"
+                }
+              }
+            }
+          }
+        }
       }
     }
-    }
   }
-  
 }

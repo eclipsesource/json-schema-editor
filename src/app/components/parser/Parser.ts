@@ -4,6 +4,7 @@ import {Promise} from "es6-promise";
 
 export class Parser{
     private schema;
+    private references;
     private rootElement: PaletteItem;
     private pluralize = require('pluralize');
 
@@ -11,7 +12,7 @@ export class Parser{
         this.loadSchema();
     }
 
-    parseSchema(schema, paletteItem:PaletteItem): void{
+    private parseSchema(schema, paletteItem:PaletteItem): void{
         switch (schema.type){
             case "object":
                 if (!schema.properties) {throw new Error("Invalid schema. HINT : Possibly no properties present for the schema.");}
@@ -51,19 +52,36 @@ export class Parser{
         }
     }
 
-    checkIfExists(result,item):boolean{
+    findDefinitionKey(item):string{
+        let keys=Object.keys(this.references);
+
+        for(let i=0;i<keys.length;i++){
+            let tmp = keys[i].split("/");
+            let key = tmp[tmp.length-1];
+            if(key===item.key){
+                let properties = this.references[keys[i]].uri;
+                let property = properties.split("/");
+                item.key=property[property.length-1];
+            }
+        }
+        return item.key;
+    }
+
+    private checkIfExistsInDraggables(result,item):any{
+        item.key=this.findDefinitionKey(item);
         for(let i=0;i<result.length;i++){
             if(result[i].key===item.key)
                 return false;
         }
-        return true;
+        return item;
     }
 
-    helper(item: PaletteItem): Array<PaletteItem>{
+    private helper(item: PaletteItem): Array<PaletteItem>{
         let result = [];
         for(let i in item.draggables){
-            if(this.checkIfExists(result,item.draggables[i]))
-                result.push(item.draggables[i]);
+            let res = this.checkIfExistsInDraggables(result,item.draggables[i]);
+            if(res!==false)
+                result.push(res);
             result = result.concat(this.helper(item.draggables[i]));
         }
         return result;
@@ -83,8 +101,9 @@ export class Parser{
         var resolveSchemaPromise = this.resolveSchema();
 
         var resolveGetRootElementPromise = new Promise((resolve)=>{
-            resolveSchemaPromise.then((ref)=>{
-                this.schema = ref.resolved;
+            resolveSchemaPromise.then((res)=>{
+                this.schema = res.resolved;
+                this.references = res.refs;
                 this.rootElement = {
                     'key': 'rootElement',
                     'properties': this.schema,
@@ -104,7 +123,7 @@ export class Parser{
         this.schema = JSON.parse(this.schema);
     }
 
-    resolveSchema(): Promise<any>{
+    private resolveSchema(): Promise<any>{
         var jsonrefs = require('json-refs');
         let jsonsrefsPromise = jsonrefs.resolveRefs(this.schema);
         return jsonsrefsPromise;

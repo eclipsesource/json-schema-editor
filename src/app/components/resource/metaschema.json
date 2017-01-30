@@ -17,8 +17,23 @@
           }
         }
       }
+    },
+    "floor":{
+      "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "Rooms":{
+                        "$ref":"#/definitions/room"
+                      }
+                    }
+                  }
     }
   },
+
   "type": "object",
   "properties": {
     "name": {
@@ -35,7 +50,7 @@
           "street": { "type": "string" },
           "city": { "type": "string" },
           "state": { "type": "string" },
-          "Floors": {
+          "Blocks": {
             "type": "array",
             "items": {
               "type": "object",
@@ -43,28 +58,25 @@
                 "number": {
                   "type": "integer"
                 },
-                "Sections": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "Rooms":{
-                        "$ref":"#/definitions/room"
-                      }
-                    }
-                  }
+                "Floors": {
+                  "ref":"#/definitions/floor"
                 },
                 "Rooms":{
                   "$ref":"#/definitions/room"
                 }
               }
             }
-          }
+          },
+          "Floors": {
+                  "ref":"#/definitions/floor"
+                }
         }
       }
     }
-  }
+  },
+  "anyof":[{
+    "ref":"#/definitions/Floors"},
+  {"$ref":"#/definitions/Buildings"},
+  {"$ref":"#/definitions/Rooms"}
+  ]
 }

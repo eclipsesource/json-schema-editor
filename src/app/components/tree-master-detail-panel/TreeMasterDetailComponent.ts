@@ -20,6 +20,7 @@ export class TreeMasterDetailController {
     private droplog=[];
     private hinttree;
     private showHintTree=false;
+    public isVisible=false;
 
     constructor(parser:Parser,mdDialog: $mdDialog){
         this.mdDialog = mdDialog;
@@ -120,6 +121,11 @@ export class TreeMasterDetailController {
             return node.key;
         }
         return result;
+    }
+
+    showHint(){
+      this.isVisible = this.isVisible ? false : true;
+      return this.isVisible;
     }
 
     getChildren(node:PaletteItem,key:string):Array<Object>{

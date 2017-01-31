@@ -1,82 +1,75 @@
 {
-  "definitions":{
-    "room":{
-      "type":"array",
-      "items":{
-        "type":"object",
-        "properties":{
-          "name":{
-            "type":"string"
-          },
-          "type":{
-            "type":"string",
-            "enum":["Public","Private"]
-          },
-          "description":{
-            "type":"string"
-          }
+ "type": "object",
+ "properties": {
+   "name": {
+     "type": "string"
+   },
+   "Universities":{
+     "type":"array",
+     "items": {
+       "type": "object",
+       "properties": {
+         "name": {
+           "type": "string"
+         },
+         "Departments": {
+           "type": "array",
+           "items": {
+             "type": "object",
+             "properties": {
+               "name": {
+                 "type": "string",
+                 "enum" : ["Informatics","Computational Science", "Mathematik"]
+               },
+         "Courses": {
+          "type":"array",
+        "items":{
+          "type":"object",
+          "properties":{
+           "name":{
+             "type":"string",
+           "enum":["Software Engineering","Web Technology","Robotics","Testing","Machine Learning"]
+           },
+           "Course ID":{
+                  "type":"integer"
+         
+             }
+         }
         }
-      }
-    },
-    "floor":{
-      "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "Rooms":{
-                        "$ref":"#/definitions/room"
-                      }
+         }
+             }
+           }
+         },
+     "Degrees":{
+        "type":"array",
+      "items":{
+         "type":"object",
+         "properties":{
+             "name":{
+              "type":"string",
+            "enum": ["masters","bachelors","diploma"]
+           },
+           "Students":{
+                  "type":"array",
+                  "items":{
+                     "type":"object",
+                   "properties":{
+                         "name":{
+                         "type":"string"
+                        },
+                       "Student_ID":{
+                         "type":"integer"
+         
                     }
                   }
-    }
-  },
-
-  "type": "object",
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "Buildings": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "street": { "type": "string" },
-          "city": { "type": "string" },
-          "state": { "type": "string" },
-          "Blocks": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "number": {
-                  "type": "integer"
-                },
-                "Floors": {
-                  "ref":"#/definitions/floor"
-                },
-                "Rooms":{
-                  "$ref":"#/definitions/room"
                 }
-              }
             }
-          },
-          "Floors": {
-                  "ref":"#/definitions/floor"
-                }
-        }
+         }
       }
-    }
-  },
-  "anyof":[{
-    "ref":"#/definitions/Floors"},
-  {"$ref":"#/definitions/Buildings"},
-  {"$ref":"#/definitions/Rooms"}
-  ]
+     }
+     
+       }
+     }
+   }
+ }
 }

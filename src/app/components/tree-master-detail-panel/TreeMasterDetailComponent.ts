@@ -89,11 +89,8 @@ export class TreeMasterDetailController {
         return result;
     }
 
-    showHint(){
-      this.isVisible = this.isVisible ? false : true;
-      if (this.isVisible) {document.getElementById("showBorder").style.border="1px solid"}
-      else document.getElementById("showBorder").style.border="1px solid transparent";
-      return this.isVisible;
+    toggleHint(){
+        this.isVisible = !this.isVisible;
     }
 
     getHintKey(key:string){

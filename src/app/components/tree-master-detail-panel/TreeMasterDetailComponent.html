@@ -7,8 +7,8 @@
     </div>
 
     <ol ui-tree-nodes="" ng-model="tempArr" data-nodrop-enabled="true" ng-init="tempArr=[]"><br/>
-          <li  ui-tree-node ng-repeat="(key,value) in node.draggables" style="min-height:10px;border:1px solid transparent">
-          <div id="showBorder" class="well well-sm" style="font-style: bold " ng-show="$ctrl.isVisible" style="border:1px solid">
+          <li  ui-tree-node ng-repeat="(key,value) in node.draggables">
+          <div id="showBorder" class="well well-sm hint" ng-show="$ctrl.isVisible">
             {{$ctrl.getHintKey(key)}}
           </div>
             <ol ui-tree-nodes="" ng-model="node.uitreeNodes[key]">
@@ -24,7 +24,7 @@
 <div layout="row" layout-padding ng-if="$ctrl.treelist!='error'">
     <div flex></div>
     <div><button class="btn-info" ng-click="$ctrl.exportJSON()"><b>Export JSON</b></button></div>
-    <div><button class="btn-info" ng-click="$ctrl.showHint()"><b>Show/Hide Hint</b></button></div>
+    <div><button class="btn-info" ng-click="$ctrl.toggleHint()"><b>Show/Hide Hint</b></button></div>
 </div>
 
 <div ng-if="$ctrl.treelist=='error'">

@@ -63,7 +63,7 @@ export class TreeMasterDetailController {
 
     deleteElement(node){
         var child = node.$parent.$modelValue;
-        var parent = node.$nodeScope.$parentNodeScope.$modelValue.value;
+        var parent = node.$parent.$parentNodeScope.$parentNodeScope.$modelValue.value;
         parent = parent[this.pluralize.plural(child.key)];
         if (Array.isArray(parent)) {
             if (parent.indexOf(child.value) != -1) {

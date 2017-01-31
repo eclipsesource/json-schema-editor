@@ -96,6 +96,10 @@ export class TreeMasterDetailController {
       return this.isVisible;
     }
 
+    getHintKey(key:string){
+        return this.pluralize.plural(key);
+    }
+
     getChildren(node:PaletteItem,key:string):Array<Object>{
         let result = node.uitreeNodes[key];
         this.droppoints = node.uitreeNodes[key];

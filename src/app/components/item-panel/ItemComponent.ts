@@ -21,7 +21,6 @@ export class ItemController {
         dropped: (event) => {
             // Object defined by additionalProperties has a key field
             if (event.dest.nodesScope.$nodeScope == null) return;
-            console.log(event);
             let dest = event.dest.nodesScope.$nodeScope.$parent.node.value;
             let key = this.pluralize.plural(event.source.cloneModel.key);
             let isObject = event.source.cloneModel.properties.properties.objectKey;
@@ -42,19 +41,11 @@ export class ItemController {
             //  value[key].splice(event.index,0,event.source.cloneModel.value);
         },
         accept: (sourceNodeScope, destNodesScope, destIndex) => {
+            // do not accept any item dropping on the palette item list itself.
             return false;
         },
-        dragStop : (event) => {
-            // console.log("dragStop");
-            // console.log(event);
-        },
-
-        beforeDrop : (event) => {
-            // console.log("beforeDrop");
-            // console.log(ev
-        },
-        dragMove:(event) => {
-        //   console.log("dragMove called");
-        }
+        dragStop : (event) => {},
+        beforeDrop : (event) => {},
+        dragMove:(event) => {}
     };
 }

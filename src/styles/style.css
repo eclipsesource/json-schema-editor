@@ -112,6 +112,10 @@ html, body {
     margin-bottom:10px;
 }
 
+.well {
+    background-color: #8FBC8F;
+}
+
 tree-master-detail-component {
     padding:15px;
 }

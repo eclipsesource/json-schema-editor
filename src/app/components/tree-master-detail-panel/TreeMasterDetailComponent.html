@@ -12,14 +12,14 @@
     </ol> -->
 
     <ol ui-tree-nodes="" ng-model="tempArr" data-nodrop-enabled="true" ng-init="tempArr=[]"><br/>
-          <li ui-tree-node ng-repeat="(key,value) in node.draggables" style="min-height:50px;border: 1px solid #A9A9A9">
-          <div class="well well-sm" style="font-style: bold" ng-show="$ctrl.isVisible">
+          <li  ui-tree-node ng-repeat="(key,value) in node.draggables" style="min-height:10px;border:1px solid transparent">
+          <div id="showBorder" class="well well-sm" style="font-style: bold " ng-show="$ctrl.isVisible" style="border:1px solid">
             {{key}}
           </div>
-            <ol ui-tree-nodes="" ng-model="node.uitreeNodes[key]"><br/>
+            <ol ui-tree-nodes="" ng-model="node.uitreeNodes[key]">
               <li ng-repeat="node in $ctrl.getChildren(node,key)" ui-tree-node ng-include="'nodes_renderer.html'" >
                  <br/>
-              </li><br/>
+              </li>
             </ol>
           </li>
     </ol>

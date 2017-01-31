@@ -125,6 +125,11 @@ export class TreeMasterDetailController {
 
     showHint(){
       this.isVisible = this.isVisible ? false : true;
+      if (this.isVisible) {document.getElementById("showBorder").style.border="1px solid"}
+      else document.getElementById("showBorder").style.border="1px solid transparent";
+      //document.getElementById("showBorder").style.border=this.isVisible ? "#008080": "1px solid";
+      
+      console.log("value of showBorder: "+document.getElementById("showBorder").style.border);
       return this.isVisible;
     }
 

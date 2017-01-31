@@ -119,3 +119,8 @@ html, body {
 tree-master-detail-component {
     padding:15px;
 }
+
+.hint {
+    font-weight: bold;
+    border: 1px solid;
+}

@@ -87,8 +87,9 @@ export class TreeMasterDetailController {
         return result;
     }
 
-    toggleHint(){
+    toggleHint() {
         this.isVisible = !this.isVisible;
+    }
 
     getHintKey(key:string){
         return this.pluralize.plural(key);

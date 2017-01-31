@@ -5,4 +5,4 @@ export interface PaletteItem {
     value:Object;
     uitreeNodes: { [key:string]:Array<Object>; };
     definitionKey: String;
-  }
+}

@@ -46,7 +46,6 @@ export class TreeMasterDetailController {
             if(nodeScope.$modelValue !== undefined)
                 return false;
             return sourceNodeScope.$modelValue.key===destNodesScope.$nodeScope.value.definitionKey;
-
         },
         dragStop : (event) => {},
         beforeDrop : (event) => {},

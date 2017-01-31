@@ -1,75 +1,43 @@
 {
- "type": "object",
- "properties": {
-   "name": {
-     "type": "string"
-   },
-   "Universities":{
-     "type":"array",
-     "items": {
-       "type": "object",
-       "properties": {
-         "name": {
-           "type": "string"
-         },
-         "Departments": {
-           "type": "array",
-           "items": {
-             "type": "object",
-             "properties": {
-               "name": {
-                 "type": "string",
-                 "enum" : ["Informatics","Computational Science", "Mathematik"]
-               },
-         "Courses": {
-          "type":"array",
-        "items":{
-          "type":"object",
-          "properties":{
-           "name":{
-             "type":"string",
-           "enum":["Software Engineering","Web Technology","Robotics","Testing","Machine Learning"]
-           },
-           "Course ID":{
-                  "type":"integer"
-         
-             }
-         }
-        }
-         }
-             }
-           }
-         },
-     "Degrees":{
-        "type":"array",
+  "definitions":{
+    "attribute":{
+      "type":"array",
       "items":{
-         "type":"object",
-         "properties":{
-             "name":{
-              "type":"string",
-            "enum": ["masters","bachelors","diploma"]
-           },
-           "Students":{
-                  "type":"array",
-                  "items":{
-                     "type":"object",
-                   "properties":{
-                         "name":{
-                         "type":"string"
-                        },
-                       "Student_ID":{
-                         "type":"integer"
-         
-                    }
-                  }
-                }
-            }
-         }
+        "type":"object",
+        "properties":{
+          "name":{
+            "type":"string"
+          },
+          "visibility":{
+            "type":"string",
+            "enum":["Public","Private","Protected"]
+          },
+          "type":{
+            "type":"string",
+            "enum":["Boolean","Integer","Real","String"]
+          }
+        }
       }
-     }
-     
-       }
-     }
-   }
- }
+    }
+  },
+  "type":"object",
+  "properties":{
+    "name":{
+      "type":"string"
+    },
+    "classes":{
+      "type":"array",
+      "items":{
+        "type":"object",
+        "properties":{
+          "name":{
+            "type":"string"
+          },
+          "attr":{
+            "$ref":"#/definitions/attribute"
+          }
+        }
+      }
+    }
+  }
 }

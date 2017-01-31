@@ -20,12 +20,16 @@ export class Parser{
                     // Addables are within an array with type object
                     if (schema.properties[key]["type"] == "array") {
                         if (schema.properties[key]["items"]["type"] == "object") {
+                            let item={};
+                            item["key"]=key;
+                            let definitionKey=this.findDefinitionKey(item)?this.findDefinitionKey(item):key;
                             let child : PaletteItem = {
                                 'key': this.pluralize.singular(key),
                                 'properties': schema.properties[key]["items"],
                                 'draggables': {},
                                 'value': {},
-                                'uitreeNodes':{}
+                                'uitreeNodes':{},
+                                'definitionKey':this.pluralize.singular(definitionKey)
                             };
                             this.parseSchema(schema.properties[key]["items"], child);
                             paletteItem.draggables[this.pluralize.singular(key)] = child;
@@ -34,12 +38,16 @@ export class Parser{
                     } else if (schema.properties[key]["type"] == "object") {
                         // additionalProperties itself is an object, which should be an palette item
                         if (schema.properties[key]["additionalProperties"]["type"] == "object") {
+                            let item={};
+                            item["key"]=key;
+                            let definitionKey=this.findDefinitionKey(item)?this.findDefinitionKey(item):key;
                             let child : PaletteItem = {
                                 'key': this.pluralize.singular(key),
                                 'properties': schema.properties[key]["additionalProperties"],
                                 'draggables': {},
                                 'value': {},
-                                'uitreeNodes':{}
+                                'uitreeNodes':{},
+                                'definitionKey':this.pluralize.singular(definitionKey)
                             };
                             schema.properties[key]["additionalProperties"]["properties"]["objectKey"]={"type": "string"};
                             this.parseSchema(schema.properties[key]["additionalProperties"], child);
@@ -52,9 +60,8 @@ export class Parser{
         }
     }
 
-    findDefinitionKey(item):string{
+    private findDefinitionKey(item):string{
         let keys=Object.keys(this.references);
-
         for(let i=0;i<keys.length;i++){
             let tmp = keys[i].split("/");
             let key = tmp[tmp.length-1];
@@ -79,6 +86,7 @@ export class Parser{
     private helper(item: PaletteItem): Array<PaletteItem>{
         let result = [];
         for(let i in item.draggables){
+            //check is item already exists in draggables
             let res = this.checkIfExistsInDraggables(result,item.draggables[i]);
             if(res!==false)
                 result.push(res);
@@ -109,7 +117,8 @@ export class Parser{
                     'properties': this.schema,
                     'draggables': {},
                     'value': {},
-                    'uitreeNodes':{}
+                    'uitreeNodes':{},
+                    'definitionKey':'rootElement'
                 };
                 this.parseSchema(this.schema, this.rootElement);
                 resolve(this.rootElement);
@@ -118,7 +127,7 @@ export class Parser{
         return resolveGetRootElementPromise;
     }
 
-    loadSchema(){
+    private loadSchema(){
         this.schema = JSON.stringify(require("../resource/metaschema.json"));
         this.schema = JSON.parse(this.schema);
     }

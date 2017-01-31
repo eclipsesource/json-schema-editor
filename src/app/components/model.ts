@@ -4,4 +4,5 @@ export interface PaletteItem {
     draggables: { [key:string]:PaletteItem; };
     value:Object;
     uitreeNodes: { [key:string]:Array<Object>; };
+    definitionKey: String;
   }

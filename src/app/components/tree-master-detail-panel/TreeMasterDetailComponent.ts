@@ -34,7 +34,6 @@ export class TreeMasterDetailController {
 
     mastertreeOptions = {
         dropped: (event) => {
-            //console.log(event);
             let value = event.dest.nodesScope.$nodeScope.$modelValue.value;
             let key = event.source.nodeScope.$modelValue.key;
             value[key].splice(event.source.index, 1);
@@ -45,9 +44,9 @@ export class TreeMasterDetailController {
             if(nodeScope==undefined)
                 return false;
             if(nodeScope.$modelValue !== undefined)
-               return false;
-            let result = nodeScope.key == sourceNodeScope.$modelValue.key;
-            return result;
+                return false;
+            return sourceNodeScope.$modelValue.key===destNodesScope.$nodeScope.value.definitionKey;
+
         },
         dragStop : (event) => {},
         beforeDrop : (event) => {},
@@ -90,10 +89,10 @@ export class TreeMasterDetailController {
     }
 
     showHint(){
-      this.isVisible = this.isVisible ? false : true;
-      if (this.isVisible) {document.getElementById("showBorder").style.border="1px solid"}
-      else document.getElementById("showBorder").style.border="1px solid transparent";
-      return this.isVisible;
+        this.isVisible = this.isVisible ? false : true;
+        if (this.isVisible) {document.getElementById("showBorder").style.border="1px solid"}
+        else document.getElementById("showBorder").style.border="1px solid transparent";
+        return this.isVisible;
     }
 
     getHintKey(key:string){
@@ -118,9 +117,9 @@ export class TreeMasterDetailController {
     exportJSON(){
         this.mdDialog.show(
             this.mdDialog.confirm()
-            .title("Result JSON")
-            .htmlContent(`<pre>`+JSON.stringify(this.treelist[0].value,undefined,2)+`</pre>`)
-            .ariaLabel('resultjson')
-            .ok('OK'));
+                .title("Result JSON")
+                .htmlContent(`<pre>`+JSON.stringify(this.treelist[0].value,undefined,2)+`</pre>`)
+                .ariaLabel('resultjson')
+                .ok('OK'));
     }
 }

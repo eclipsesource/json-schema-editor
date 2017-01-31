@@ -8,7 +8,7 @@
 
     <ol ui-tree-nodes="" ng-model="tempArr" data-nodrop-enabled="true" ng-init="tempArr=[]"><br/>
           <li  ui-tree-node ng-repeat="(key,value) in node.draggables" style="min-height:10px;border:1px solid transparent">
-          <div id="showBorder" class="well well-sm" style="font-style: bold " ng-show="$ctrl.isVisible" style="border:1px solid">
+          <div id="showBorder" class="well well-sm" style="font-weight: bold " ng-show="$ctrl.isVisible" style="border:1px solid">
             {{$ctrl.getHintKey(key)}}
           </div>
             <ol ui-tree-nodes="" ng-model="node.uitreeNodes[key]">
@@ -39,5 +39,3 @@
         </ol>
     </div>
 </div>
-
-<hr/>

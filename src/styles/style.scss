@@ -121,6 +121,15 @@ tree-master-detail-component {
 }
 
 .hint {
-    font-weight: bold;
-    border: 1px solid;
+    background: #fdfdff;
+    outline: 1px dashed #dae2ea;
+    p {
+      color: #7c9eb2;
+      padding: 5px;
+      margin: 0;
+    }
+}
+.angular-ui-tree-handle {
+    padding: 5px;
+    margin-bottom: 10px;
 }

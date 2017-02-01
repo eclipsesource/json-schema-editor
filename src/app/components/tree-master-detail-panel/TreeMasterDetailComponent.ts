@@ -87,10 +87,14 @@ export class TreeMasterDetailController {
         return result;
     }
 
-    toggleHint() {
-        this.isVisible = !this.isVisible;
+    toggleHint(node:PaletteItem):boolean {
+        //this.isVisible = !this.isVisible;
+        return Object.keys(node.draggables).length>1 || this.isVisible;
     }
 
+   changeVisibility(){
+        this.isVisible = this.isVisible ? false : true;
+    }
     getHintKey(key:string){
         return this.pluralize.plural(key);
     }

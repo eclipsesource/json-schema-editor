@@ -20,7 +20,7 @@ export class TreeMasterDetailController {
     private droplog=[];
     private hinttree;
     private showHintTree=false;
-    public isVisible=false;
+    public isHintVisible=false;
 
     constructor(parser:Parser,mdDialog: $mdDialog){
         this.parser = parser;
@@ -87,14 +87,10 @@ export class TreeMasterDetailController {
         return result;
     }
 
-    toggleHint(node:PaletteItem):boolean {
-        //this.isVisible = !this.isVisible;
-        return Object.keys(node.draggables).length>1 || this.isVisible;
+    toggleHint(){
+        this.isHintVisible = !this.isHintVisible;
     }
 
-   changeVisibility(){
-        this.isVisible = this.isVisible ? false : true;
-    }
     getHintKey(key:string){
         return this.pluralize.plural(key);
     }

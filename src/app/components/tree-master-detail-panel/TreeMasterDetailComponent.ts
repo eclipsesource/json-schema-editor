@@ -91,6 +91,10 @@ export class TreeMasterDetailController {
         this.isHintVisible = !this.isHintVisible;
     }
 
+    getHintButtonText(){
+        return this.isHintVisible? 'Hide Hint' : 'Show Hint';
+    }
+
     getHintKey(key:string){
         return this.pluralize.plural(key);
     }

@@ -116,7 +116,7 @@ export class TreeMasterDetailController {
 
     exportJSON(){
         this.mdDialog.show(
-            this.mdDialog.confirm()
+            this.mdDialog.alert()
                 .title("Result JSON")
                 .htmlContent(`<pre>`+JSON.stringify(this.treelist[0].value,undefined,2)+`</pre>`)
                 .ariaLabel('resultjson')

@@ -11,7 +11,7 @@ export class TreeMasterDetailComponent implements ng.IComponentOptions {
 export class TreeMasterDetailController {
     public onSelectElement: Function;
     private parser: Parser;
-    static $inject = ['parser','$mdDialog'];
+    static $inject = ['parser','$mdDialog', 'jsonFilter'];
     private mdDialog;
     private pluralize = require('pluralize');
 
@@ -22,7 +22,7 @@ export class TreeMasterDetailController {
     private showHintTree=false;
     public isHintVisible=false;
 
-    constructor(parser:Parser,mdDialog: $mdDialog){
+    constructor(parser:Parser,mdDialog: $mdDialog, private jsonFilter: jsonFilter){
         this.parser = parser;
         this.mdDialog = mdDialog;
         let getRootElementPromise = parser.getRootElement();
@@ -119,7 +119,7 @@ export class TreeMasterDetailController {
         this.mdDialog.show(
             this.mdDialog.alert()
                 .title("Result JSON")
-                .htmlContent(`<pre>`+JSON.stringify(this.treelist[0].value,undefined,2)+`</pre>`)
+                .htmlContent(`<pre>`+ this.jsonFilter(JSON.parse(JSON.stringify(this.treelist[0].value,undefined,2)))+`</pre>`)
                 .ariaLabel('resultjson')
                 .ok('OK'));
     }

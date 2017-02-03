@@ -20,7 +20,7 @@ export class TreeMasterDetailController {
     private droplog=[];
     private hinttree;
     private showHintTree=false;
-    public isVisible=false;
+    public isHintVisible=false;
 
     constructor(parser:Parser,mdDialog: $mdDialog){
         this.parser = parser;
@@ -87,8 +87,12 @@ export class TreeMasterDetailController {
         return result;
     }
 
-    toggleHint() {
-        this.isVisible = !this.isVisible;
+    toggleHint(){
+        this.isHintVisible = !this.isHintVisible;
+    }
+
+    getHintButtonText(){
+        return this.isHintVisible? 'Hide Hint' : 'Show Hint';
     }
 
     getHintKey(key:string){

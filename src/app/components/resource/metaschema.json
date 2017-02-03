@@ -1,40 +1,79 @@
 {
   "definitions":{
-    "attribute":{
-      "type":"array",
-      "items":{
-        "type":"object",
-        "properties":{
-          "name":{
-            "type":"string"
+    "Room":{
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
           },
-          "visibility":{
-            "type":"string",
-            "enum":["Public","Private","Protected"]
+          "type": {
+            "type": "string",
+            "enum": [
+              "Public",
+              "Private"
+            ]
           },
-          "type":{
-            "type":"string",
-            "enum":["Boolean","Integer","Real","String"]
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Floor":{
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "string"
+          },
+          "Rooms": {
+            "$ref":"#/definitions/Room"
           }
         }
       }
     }
   },
-  "type":"object",
-  "properties":{
-    "name":{
-      "type":"string"
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
     },
-    "classes":{
-      "type":"array",
-      "items":{
-        "type":"object",
-        "properties":{
-          "name":{
-            "type":"string"
+    "Buildings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
           },
-          "attr":{
-            "$ref":"#/definitions/attribute"
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "Blocks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "Floors": {
+                  "$ref":"#/definitions/Floor"
+                }
+              }
+            }
+          },
+          "Floors": {
+            "$ref":"#/definitions/Floor"
           }
         }
       }

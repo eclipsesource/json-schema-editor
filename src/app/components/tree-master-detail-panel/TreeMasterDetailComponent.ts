@@ -27,7 +27,6 @@ export class TreeMasterDetailController {
         this.mdDialog = mdDialog;
         let getRootElementPromise = parser.getRootElement();
         getRootElementPromise.then((res)=>{
-            console.log(res);
             this.treelist = Object.keys(res.draggables).length?[res]:"error";
         });
 

@@ -64,7 +64,6 @@ export class Parser {
             //console.log(schema);
             switch (schema.type) {
                 case "object":
-                    console.log(schema);
                     if (!schema.properties) {
                         throw new Error("Invalid schema. HINT : Possibly no properties present for the schema.");
                     }
@@ -89,7 +88,6 @@ export class Parser {
                                 paletteItem.draggables[this.pluralize.singular(key)] = child;
                                 paletteItem.uitreeNodes[this.pluralize.singular(key)] = [];
                             } else if(schema.properties[key]["items"]["anyOf"]!==undefined){
-                                console.log('inside anyOf');
                                 let anyOf = schema.properties[key]["items"]["anyOf"];
                                 for (let i = 0; i < anyOf.length; i++) {
                                     if (anyOf[i]["$ref"] !== undefined) {

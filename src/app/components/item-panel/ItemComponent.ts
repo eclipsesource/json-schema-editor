@@ -14,7 +14,6 @@ export class ItemController {
         let getDraggablesPromise = parser.getDraggables();
         getDraggablesPromise.then((paletteItems)=>{
             this.itemlist = paletteItems[0]===undefined?"error":paletteItems;
-            console.log(this.itemlist);
         });
     }
 

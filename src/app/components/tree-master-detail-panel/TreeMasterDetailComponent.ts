@@ -20,7 +20,7 @@ export class TreeMasterDetailController {
     private droplog=[];
     private hinttree;
     private showHintTree=false;
-    public isVisible=false;
+    public isHintVisible=false;
 
     constructor(parser:Parser,mdDialog: $mdDialog){
         this.parser = parser;
@@ -79,6 +79,7 @@ export class TreeMasterDetailController {
     getLabel(node:PaletteItem){
         if (node.value == undefined) return node.key;
         if (node.value["objectKey"] != undefined) return node.value["objectKey"];
+        if (node.value.hasOwnProperty("label")) return node.value["label"];
         let firstProperty = Object.keys(node.properties['properties'])[0];
         let result = node.value[firstProperty];
         if (result == undefined) {
@@ -87,8 +88,12 @@ export class TreeMasterDetailController {
         return result;
     }
 
-    toggleHint() {
-        this.isVisible = !this.isVisible;
+    toggleHint(){
+        this.isHintVisible = !this.isHintVisible;
+    }
+
+    getHintButtonText(){
+        return this.isHintVisible? 'Hide Hint' : 'Show Hint';
     }
 
     getHintKey(key:string){
@@ -112,7 +117,7 @@ export class TreeMasterDetailController {
 
     exportJSON(){
         this.mdDialog.show(
-            this.mdDialog.confirm()
+            this.mdDialog.alert()
                 .title("Result JSON")
                 .htmlContent(`<pre>`+JSON.stringify(this.treelist[0].value,undefined,2)+`</pre>`)
                 .ariaLabel('resultjson')

@@ -6,25 +6,23 @@
                 ng-hide="$ctrl.isRoot(node)"></span>
     </div>
 
-    <ol ui-tree-nodes="" ng-model="tempArr" data-nodrop-enabled="true" ng-init="tempArr=[]"><br/>
-          <li  ui-tree-node ng-repeat="(key,value) in node.draggables">
-          <div id="showBorder" class="well well-sm hint" ng-show="$ctrl.isVisible">
-            {{$ctrl.getHintKey(key)}}
-          </div>
+    <ol ui-tree-nodes="" ng-model="tempArr" data-nodrop-enabled="true" ng-init="tempArr=[]">
+          <li  ui-tree-node ng-repeat="(key,value) in node.draggables" ng-class="{hint: $ctrl.isHintVisible}">
+            <p ng-show="$ctrl.isHintVisible">{{$ctrl.getHintKey(key)}}</p>
             <ol ui-tree-nodes="" ng-model="node.uitreeNodes[key]">
               <li ng-repeat="node in $ctrl.getChildren(node,key)" ui-tree-node ng-include="'nodes_renderer.html'" >
-                 <br/>
               </li>
             </ol>
           </li>
     </ol>
-
 </script>
 
-<div layout="row" layout-padding ng-if="$ctrl.treelist!='error'">
+<div layout="row" ng-if="$ctrl.treelist!='error'">
     <div flex></div>
-    <div><button class="btn-info" ng-click="$ctrl.exportJSON()"><b>Export JSON</b></button></div>
-    <div><button class="btn-info" ng-click="$ctrl.toggleHint()"><b>Show/Hide Hint</b></button></div>
+    <div class="btn-group">
+        <button class="btn-info" ng-click="$ctrl.exportJSON()"><b>Export JSON</b></button>
+        <button class="btn-info" ng-click="$ctrl.toggleHint()"><b>{{$ctrl.getHintButtonText()}}</b></button>
+    </div>
 </div>
 
 <div ng-if="$ctrl.treelist=='error'">
@@ -32,7 +30,7 @@
 </div>
 
 <div class="row" layout-padding ng-if="$ctrl.treelist!='error'">
-    <div ui-tree="$ctrl.mastertreeOptions" data-drag-delay="300" style="height:600px;">
+    <div ui-tree="$ctrl.mastertreeOptions" data-drag-delay="300">
         <ol ui-tree-nodes="" ng-model="$ctrl.treelist" data-nodrop-enabled="true" id="tree-root">
             <li ng-repeat="node in $ctrl.treelist" ui-tree-node ng-include="'nodes_renderer.html'">
             </li>

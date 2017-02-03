@@ -75,12 +75,13 @@ export class Parser{
     }
 
     private checkIfExistsInDraggables(result,item):any{
-        item.key=this.findDefinitionKey(item);
+        item.key = this.findDefinitionKey(item);
         for(let i=0;i<result.length;i++){
-            if(result[i].key===item.key)
-                return false;
+            if(result[i].key === item.key) {
+                return result[i];
+            }
         }
-        return item;
+        return false;
     }
 
     private helper(item: PaletteItem): Array<PaletteItem>{
@@ -88,9 +89,12 @@ export class Parser{
         for(let i in item.draggables){
             //check is item already exists in draggables
             let res = this.checkIfExistsInDraggables(result,item.draggables[i]);
-            if(res!==false)
-                result.push(res);
-            result = result.concat(this.helper(item.draggables[i]));
+            if(!res)
+                result.push(item.draggables[i]);
+            let newItems = this.helper(item.draggables[i])
+                .filter(item => !this.checkIfExistsInDraggables(result, item));
+
+            result = result.concat(newItems);
         }
         return result;
     }
@@ -99,7 +103,8 @@ export class Parser{
         var getRootElementPromise = this.getRootElement();
         var getDraggablesPromise = new Promise((resolve)=>{
             getRootElementPromise.then((res)=>{
-                resolve(this.helper(res));
+              let flatNodes = this.helper(res);
+              resolve(flatNodes);
             });
         });
         return getDraggablesPromise;

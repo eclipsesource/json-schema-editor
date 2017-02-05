@@ -133,3 +133,6 @@ tree-master-detail-component {
     padding: 5px;
     margin-bottom: 10px;
 }
+.angular-ui-tree-node, .angular-ui-tree-placeholder {
+  min-height: 10px;
+}

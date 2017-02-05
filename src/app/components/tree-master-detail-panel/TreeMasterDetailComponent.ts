@@ -92,8 +92,12 @@ export class TreeMasterDetailController {
         this.isHintVisible = !this.isHintVisible;
     }
 
+    checkHint(node:PaletteItem){
+      return Object.keys(node.draggables).length > 1 || this.isHintVisible;
+    }
+
     getHintButtonText(){
-        return this.isHintVisible? 'Hide Hint' : 'Show Hint';
+        return this.isHintVisible ? 'Hide Hint' : 'Show Hint';
     }
 
     getHintKey(key:string){

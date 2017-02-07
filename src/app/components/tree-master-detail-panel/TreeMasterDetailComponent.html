@@ -7,8 +7,8 @@
     </div>
 
     <ol ui-tree-nodes="" ng-model="tempArr" data-nodrop-enabled="true" ng-init="tempArr=[]">
-          <li  ui-tree-node ng-repeat="(key,value) in node.draggables" ng-class="{hint: $ctrl.isHintVisible}">
-            <p ng-show="$ctrl.isHintVisible">{{$ctrl.getHintKey(key)}}</p>
+          <li  ui-tree-node ng-repeat="(key,value) in node.draggables" ng-class="{hint: $ctrl.checkHint(node)}">
+            <p ng-show="$ctrl.checkHint(node)">{{$ctrl.getHintKey(key)}}</p>
             <ol ui-tree-nodes="" ng-model="node.uitreeNodes[key]">
               <li ng-repeat="node in $ctrl.getChildren(node,key)" ui-tree-node ng-include="'nodes_renderer.html'" >
               </li>

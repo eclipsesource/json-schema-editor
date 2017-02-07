@@ -1,65 +1,82 @@
 {
   "definitions":{
-    "control": {
-      "type":"array",
+    "Room":{
+      "type": "array",
       "items": {
         "type": "object",
         "properties": {
+          "name": {
+            "type": "string"
+          },
           "type": {
             "type": "string",
             "enum": [
-              "Control"
+              "Public",
+              "Private"
             ]
           },
-          "label": {
+          "description": {
             "type": "string"
           }
         }
       }
     },
-    "attribute": {
-      "type":"array",
+    "Floor":{
+      "type": "array",
       "items": {
         "type": "object",
         "properties": {
-          "label": {
+          "number": {
             "type": "string"
+          },
+          "Rooms": {
+            "$ref":"#/definitions/Room"
           }
         }
       }
     }
   },
-  "type":"object",
-  "properties":{
-    "name":{
-      "type":"string"
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
     },
-    "layout":{
-      "type":"array",
-      "items":{
-        "type":"object",
-        "properties":{
-          "label":{
-            "type":"string"
+    "Buildings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
           },
-          "type": {
-            "type": "string",
-            "enum": ["VerticalLayout", "HorizontalLayout", "Group"]
+          "street": {
+            "type": "string"
           },
-          "controls":{
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "Blocks": {
             "type": "array",
             "items": {
-              "anyOf": [
-                {"$ref": "#/definitions/control"},
-                {"$ref": "#/definitions/attribute"}
-              ]
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "Floors": {
+                  "$ref":"#/definitions/Floor"
+                }
+              }
             }
+          },
+          "Floors": {
+            "$ref":"#/definitions/Floor"
           }
         }
       }
-    },
-    "controls":{
-      "$ref": "#/definitions/control"
     }
   }
 }

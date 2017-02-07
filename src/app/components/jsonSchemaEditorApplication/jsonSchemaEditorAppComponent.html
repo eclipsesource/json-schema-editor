@@ -8,13 +8,13 @@
 
 <div id="content" class="container-fluid">
     <div class="row fullheight">
-        <div class="col-md-2 side-col">
+        <div class="col-md-2 side-col scrollable">
             <item-component></item-component>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-7 scrollable">
             <tree-master-detail-component on-select-element="$ctrl.selectElement(schema, data)"></tree-master-detail-component>
         </div>
-        <div class="col-md-3 side-col">
+        <div class="col-md-3 side-col scrollable">
             <properties-component schema="$ctrl.schema" data="$ctrl.selectedElement"></properties-component>
         </div>
     </div>

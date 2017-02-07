@@ -136,3 +136,7 @@ tree-master-detail-component {
 .angular-ui-tree-node, .angular-ui-tree-placeholder {
   min-height: 10px;
 }
+
+.scrollable {
+  overflow: auto;
+}

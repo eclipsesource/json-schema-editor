@@ -7,6 +7,7 @@ export class Parser {
     private references;
     private rootElement:PaletteItem;
     private pluralize = require('pluralize');
+    private checklistforcirculardependency=[];
 
     constructor() {
         this.loadSchema();
@@ -39,29 +40,23 @@ export class Parser {
         throw new Error("Unable to resolve references. Please verify the schema");
     }
 
+    private checkCircularDependency(key):boolean{
+        if(this.checklistforcirculardependency.indexOf(key)==-1){
+            this.checklistforcirculardependency.push(key);
+            return true;
+        }
+        return false;
+    }
+
     private parseSchema(schema, paletteItem:PaletteItem):void {
 
         if (schema["anyOf"] !== undefined) {
-            console.log("placeholder for resolving anyOf at the rootLevel");
-        } else if (schema["$ref"] !== undefined) {
-            console.log("placeholder for resolving $ref at root Level");
-            let properties = schema["$ref"];
-            let property = properties.split("/");
-            let key = property[property.length - 1];
-            var res = this.getReferenceDetails(key, schema);
-            let item = {};
-            item["key"] = key;
-            if (res[key].type == "array") {
-                if (res[key].items.type == "object") {
-                    let child = this.createPaletteItemChild(key, res[key].items);
-                    this.parseSchema(res[key].items, child);
-                    paletteItem.draggables[this.pluralize.singular(key)] = child;
-                    paletteItem.uitreeNodes[this.pluralize.singular(key)] = [];
-                }
-            }
-        } else if (schema.type !== undefined) {
-            //console.log("resolving type");
-            //console.log(schema);
+            //"placeholder for resolving anyOf at the rootLevel"
+        }
+        else if (schema["$ref"] !== undefined) {
+            //"placeholder for resolving $ref at root Level"
+        }
+        else if (schema.type !== undefined) {
             switch (schema.type) {
                 case "object":
                     if (!schema.properties) {
@@ -75,19 +70,43 @@ export class Parser {
                             if (res[key].type == "array") {
                                 if (res[key].items.type == "object") {
                                     let child = this.createPaletteItemChild(key, res[key].items);
-                                    this.parseSchema(res[key].items, child);
+                                    if(this.checkCircularDependency(key))
+                                        this.parseSchema(res[key].items, child);
                                     paletteItem.draggables[this.pluralize.singular(key)] = child;
                                     paletteItem.uitreeNodes[this.pluralize.singular(key)] = [];
                                 }
                             }
                         }
-                        else if (schema.properties[key]["type"] == "array") {
-                            if (schema.properties[key]["items"]["type"] == "object") {
+                        else if(schema.properties[key]["anyOf"]!==undefined){
+                            let anyOf = schema.properties[key]["anyOf"];
+                            for (let i = 0; i < anyOf.length; i++) {
+                                if (anyOf[i]["$ref"] !== undefined) {
+                                    let properties = anyOf[i]["$ref"];
+                                    let property = properties.split("/");
+                                    let refKey = property[property.length - 1];
+                                    var res = this.getReferenceDetails(refKey, anyOf[i]);
+                                    if (res[refKey].type == "array") {
+                                        if (res[refKey].items.type == "object") {
+                                            let child = this.createPaletteItemChild(refKey, res[refKey].items);
+                                            this.parseSchema(res[refKey].items, child);
+                                            paletteItem.draggables[this.pluralize.singular(refKey)] = child;
+                                            paletteItem.uitreeNodes[this.pluralize.singular(refKey)] = [];
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (schema.properties[key]["type"] == "array")
+                        {
+                            if (schema.properties[key]["items"]["type"] == "object")
+                            {
                                 let child = this.createPaletteItemChild(key, schema.properties[key]["items"]);
-                                this.parseSchema(schema.properties[key]["items"], child);
+                                if(this.checkCircularDependency(key))
+                                    this.parseSchema(schema.properties[key]["items"], child);
                                 paletteItem.draggables[this.pluralize.singular(key)] = child;
                                 paletteItem.uitreeNodes[this.pluralize.singular(key)] = [];
-                            } else if(schema.properties[key]["items"]["anyOf"]!==undefined){
+                            }
+                            else if(schema.properties[key]["items"]["anyOf"]!==undefined){
                                 let anyOf = schema.properties[key]["items"]["anyOf"];
                                 for (let i = 0; i < anyOf.length; i++) {
                                     if (anyOf[i]["$ref"] !== undefined) {
@@ -107,7 +126,6 @@ export class Parser {
                                 }
                             }
                         }
-
                         else if (schema.properties[key]["type"] == "object") {
                             // additionalProperties itself is an object, which should be an palette item
                             if (schema.properties[key]["additionalProperties"]["type"] == "object") {
@@ -180,9 +198,9 @@ export class Parser {
 
         var resolveGetRootElementPromise = new Promise((resolve)=> {
             resolveSchemaPromise.then((res)=> {
+                /// uncomment next line in case resolved schema has to be passed to the parser
                 //this.schema = res.resolved;
                 this.references = res.refs;
-                //console.log(this.schema);
                 this.rootElement = {
                     'key': 'rootElement',
                     'properties': this.schema,

@@ -1,4 +1,4 @@
-import {Parser} from "../parser/Parser";
+import {Parser} from "../parser/parser";
 import {PaletteItem} from "../model";
 
 export class TreeComponent implements ng.IComponentOptions {

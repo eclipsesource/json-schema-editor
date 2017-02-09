@@ -1,4 +1,4 @@
-import {Parser} from "../parser/Parser";
+import {Parser} from "../parser/parser";
 
 export class PaletteComponent implements ng.IComponentOptions {
     public controller: Function = PaletteController;

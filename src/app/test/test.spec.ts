@@ -7,7 +7,7 @@
  *  3. pass a sample schema and check if the palette are correctly populated
  * */
 
-import {Parser} from "../components/parser/Parser";
+import {Parser} from "../components/parser/parser";
 
 describe('Test palette items', function() {
     it('should test if the palette contains the correct list of items', function() {

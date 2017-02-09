@@ -1,10 +1,10 @@
 import {Parser} from "../parser/Parser";
 
-export class ItemComponent implements ng.IComponentOptions {
-    public controller: Function = ItemController;
-    public template : string = require('./itemComponent.html')
+export class PaletteComponent implements ng.IComponentOptions {
+    public controller: Function = PaletteController;
+    public template : string = require('./paletteComponent.html')
 }
-export class ItemController {
+export class PaletteController {
     static $inject = ['parser'];
     private parser: Parser;
     private itemlist;

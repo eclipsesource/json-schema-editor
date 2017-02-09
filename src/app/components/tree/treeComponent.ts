@@ -1,14 +1,14 @@
 import {Parser} from "../parser/Parser";
 import {PaletteItem} from "../model";
 
-export class TreeMasterDetailComponent implements ng.IComponentOptions {
-    public controller: Function = TreeMasterDetailController;
-    public template: string = require('./TreeMasterDetailComponent.html');
+export class TreeComponent implements ng.IComponentOptions {
+    public controller: Function = TreeController;
+    public template: string = require('./treeComponent.html');
     public bindings: any = {
         onSelectElement : '&'
     };
 }
-export class TreeMasterDetailController {
+export class TreeController {
     public onSelectElement: Function;
     private parser: Parser;
     static $inject = ['parser','$mdDialog', 'jsonFilter'];

@@ -12,7 +12,7 @@ import "angular-aria/angular-aria.js";
 import "angular-sanitize/angular-sanitize.js";
 require('jsonforms');
 
-import {TreeMasterDetailComponent} from "./components/tree-master-detail-panel/TreeMasterDetailComponent";
+import {TreeComponent} from "./components/tree/TreeComponent";
 import {PropertiesComponent} from "./components/properties-panel/PropertiesComponent";
 import {JsonSchemaEditorApplicationComponent} from "./components/jsonSchemaEditorApplication/JsonSchemaEditorApplicationComponent";
 import {PaletteComponent} from "./components/palette/paletteComponent";
@@ -23,6 +23,6 @@ angular.module("app.application", ['ui.tree', 'jsonforms','ui.bootstrap','ngAnim
     .component("jsonSchemaEditorApplication", new JsonSchemaEditorApplicationComponent())
     .component("headerComponent", new HeaderComponent())
     .component("paletteComponent", new PaletteComponent())
-    .component("treeMasterDetailComponent", new TreeMasterDetailComponent())
+    .component("treeComponent", new TreeComponent())
     .component("propertiesComponent", new PropertiesComponent())
     .service("parser", Parser);

@@ -9,17 +9,13 @@ export class TreeComponent implements ng.IComponentOptions {
     };
 }
 export class TreeController {
-    public onSelectElement: Function;
-    private parser: Parser;
     static $inject = ['parser','$mdDialog', 'jsonFilter'];
+    private parser: Parser;
     private mdDialog;
     private pluralize = require('pluralize');
-
+    public onSelectElement: Function;
     private treelist;
     private droppoints=[];
-    private droplog=[];
-    private hinttree;
-    private showHintTree=false;
     public isHintVisible=false;
 
     constructor(parser:Parser,mdDialog: $mdDialog, private jsonFilter: jsonFilter){

@@ -1,74 +1,82 @@
 {
   "definitions":{
-    "control": {
-      "type":"array",
+    "Room":{
+      "type": "array",
       "items": {
         "type": "object",
         "properties": {
+          "name": {
+            "type": "string"
+          },
           "type": {
             "type": "string",
             "enum": [
-              "Control"
+              "Public",
+              "Private"
             ]
           },
-          "label": {
+          "description": {
             "type": "string"
-          },
-          "readOnly": {
-            "type": "boolean"
           }
         }
       }
     },
-    "layout":{
-      "type":"array",
-      "items":{
-        "type":"object",
-        "properties":{
-          "label":{
-            "type":"string"
+    "Floor":{
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "string"
           },
-          "type": {
-            "type": "string",
-            "enum":["VerticalLayout","HorizontalLayout","Group"]
-          },
-          "layout":{
-            "$ref": "#/definitions/layout"
-          },
-          "control": {
-            "type":"array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "enum": [
-                    "Control"
-                  ]
-                },
-                "label": {
-                  "type": "string"
-                },
-                "readOnly": {
-                  "type": "boolean"
-                }
-              }
-            }
+          "Rooms": {
+            "$ref":"#/definitions/Room"
           }
         }
       }
     }
   },
-  "type":"object",
-  "properties":{
-    "name":{
-      "type":"string"
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
     },
-    "layouts":{
-      "anyOf":[
-        {"$ref": "#/definitions/control"},
-        {"$ref": "#/definitions/layout"}
-      ]
+    "Buildings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "Blocks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "Floors": {
+                  "$ref":"#/definitions/Floor"
+                }
+              }
+            }
+          },
+          "Floors": {
+            "$ref":"#/definitions/Floor"
+          }
+        }
+      }
     }
   }
 }
